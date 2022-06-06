@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
@@ -8,10 +8,10 @@ import appStyle from '../styles/appStyle';
 import { screenWidth } from '../styles/screenSize';
 
 const Header = (props) => {
-  const { profile, isChange } = props;
+  const { isChange } = props;
   return (
     <View style={styles.container}>
-      <View style={[appStyle.row, appStyle.aiCenter]}>
+      <View style={[appStyle.row, appStyle.aiCenter, Platform.OS === 'ios' && appStyle.mt15]}>
         <TouchableOpacity>
           <Image
             style={[styles.menu, { tintColor: isChange && Colors.white }]}

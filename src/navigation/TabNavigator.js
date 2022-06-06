@@ -1,16 +1,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
-import Tabs from '../components/Tabs';
+import { Tabs } from '../components';
+import { Screen } from '../constants';
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import ClassesScreen from '../screens/Classes';
 import HomeScreen from '../screens/Home';
-import LearnScreen from '../screens/Learn';
+import { Learn, SubjectDetails } from '../screens/learn';
+import { screenHeight } from '../styles/screenSize';
 
 const HomeStack = createNativeStackNavigator();
-const Home = () => {
+const HomeNavigator = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
@@ -19,7 +21,7 @@ const Home = () => {
 };
 
 const ClassesStack = createNativeStackNavigator();
-const Classes = () => {
+const ClassesNavigator = () => {
   return (
     <ClassesStack.Navigator screenOptions={{ headerShown: false }}>
       <ClassesStack.Screen name="Classes" component={ClassesScreen} />
@@ -28,10 +30,11 @@ const Classes = () => {
 };
 
 const LearnStack = createNativeStackNavigator();
-const Learn = () => {
+const LearnNavigator = () => {
   return (
     <LearnStack.Navigator screenOptions={{ headerShown: false }}>
-      <LearnStack.Screen name="Learn" component={LearnScreen} />
+      <LearnStack.Screen name={Screen.learn} component={Learn} />
+      <LearnStack.Screen name={Screen.subjectDetails} component={SubjectDetails} />
     </LearnStack.Navigator>
   );
 };
@@ -48,14 +51,14 @@ const TabNavigator = () => {
       })}>
       <Tab.Screen
         name="HomeScreen"
-        component={Home}
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ focused }) => <Tabs focused={focused} icon={Icons.home} label="home" />,
         }}
       />
       <Tab.Screen
         name="ClassesScreen"
-        component={Classes}
+        component={ClassesNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <Tabs focused={focused} icon={Icons.classes} label="classes" />
@@ -64,7 +67,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="LearnScreen"
-        component={Learn}
+        component={LearnNavigator}
         options={{
           tabBarIcon: ({ focused }) => <Tabs focused={focused} icon={Icons.learn} label="learn" />,
         }}
@@ -78,12 +81,12 @@ export default TabNavigator;
 const styles = StyleSheet.create({
   bottomTab: {
     position: 'absolute',
-    bottom: 25,
+    bottom: 20,
     left: 20,
     right: 20,
-    backgroundColor: Colors.white,
+    paddingTop: Platform.OS === 'ios' ? screenHeight.height3 : 0,
     borderRadius: 50,
-    height: 80,
+    height: screenHeight.height10,
     paddingHorizontal: 5,
     shadowColor: Colors.shadow,
     shadowOffset: {

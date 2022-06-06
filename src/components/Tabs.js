@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
+import { screenHeight, screenWidth } from '../styles/screenSize';
 
 const Tabs = (props) => {
   const { focused, icon, label } = props;
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
   tabs: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 110,
-    height: 60,
+    width: screenWidth.width25,
+    height: screenHeight.height7,
     borderRadius: 30,
   },
   tabIcon: {
