@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
-import { Header, SubjectTopicsCard } from '../../components';
+import { Header, SubjectTopicCard } from '../../components';
 import { Colors } from '../../constants/assets/Colors';
 import appStyle from '../../styles/appStyle';
 import { screenHeight } from '../../styles/screenSize';
@@ -30,7 +30,7 @@ const SubjectDetails = ({ route, navigation }) => {
         <ScrollView contentContainerStyle={[appStyle.aiCenter, appStyle.pv10]}>
           {DummySubjectsTopics.map((item, index) => {
             return (
-              <SubjectTopicsCard
+              <SubjectTopicCard
                 key={index}
                 onPress={() => {}}
                 topicTitle={item.topicTitle}

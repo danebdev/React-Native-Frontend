@@ -6,7 +6,7 @@ import Tabs from './Tabs';
 import ListTabs from './classesComponents/ListTabs';
 import Post from './classesComponents/Post';
 import SubjectCard from './learnComponent/SubjectCard';
-import SubjectTopicsCard from './learnComponent/SubjectTopicsCard';
+import SubjectTopicCard from './learnComponent/SubjectTopicCard';
 
 export {
   Header,
@@ -17,5 +17,5 @@ export {
   ListTabs,
   Post,
   SubjectCard,
-  SubjectTopicsCard,
+  SubjectTopicCard,
 };

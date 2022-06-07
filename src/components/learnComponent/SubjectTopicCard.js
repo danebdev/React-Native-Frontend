@@ -6,7 +6,7 @@ import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { screenHeight, screenWidth } from '../../styles/screenSize';
 
-const SubjectTopicsCard = (props) => {
+const SubjectTopicCard = (props) => {
   const { topicTitle, topicDescription, likes, onPress } = props;
 
   return (
@@ -28,7 +28,7 @@ const SubjectTopicsCard = (props) => {
   );
 };
 
-export default SubjectTopicsCard;
+export default SubjectTopicCard;
 
 const styles = StyleSheet.create({
   // cards style here ====
