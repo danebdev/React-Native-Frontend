@@ -10,7 +10,7 @@ const SubjectTopicsCard = (props) => {
   const { topicTitle, topicDescription, likes, onPress } = props;
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={styles.cardMian}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={styles.cardMain}>
       <Text style={styles.cardTitle}>{topicTitle}</Text>
       <Text numberOfLines={4} style={styles.cardDescription}>
         {topicDescription}
@@ -32,7 +32,7 @@ export default SubjectTopicsCard;
 
 const styles = StyleSheet.create({
   // cards style here ====
-  cardMian: {
+  cardMain: {
     width: screenWidth.width95,
     height: screenHeight.height18,
     backgroundColor: Colors.white,
