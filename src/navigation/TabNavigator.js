@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
 
 import { Tabs } from '../components';
 import { Screen } from '../constants';
@@ -8,8 +9,9 @@ import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import ClassesScreen from '../screens/Classes';
 import HomeScreen from '../screens/Home';
-import { Learn, SubjectDetails } from '../screens/learn';
+import { Learn, OptionsSelection, SubjectDetails, TopicDetails } from '../screens/learn';
 import { screenHeight } from '../styles/screenSize';
+import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
 
 const HomeStack = createNativeStackNavigator();
 const HomeNavigator = () => {
@@ -35,6 +37,8 @@ const LearnNavigator = () => {
     <LearnStack.Navigator screenOptions={{ headerShown: false }}>
       <LearnStack.Screen name={Screen.learn} component={Learn} />
       <LearnStack.Screen name={Screen.subjectDetails} component={SubjectDetails} />
+      <LearnStack.Screen name={Screen.topicDetails} component={TopicDetails} />
+      <LearnStack.Screen name={Screen.optionsSelection} component={OptionsSelection} />
     </LearnStack.Navigator>
   );
 };
@@ -81,13 +85,12 @@ export default TabNavigator;
 const styles = StyleSheet.create({
   bottomTab: {
     position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-    paddingTop: Platform.OS === 'ios' ? screenHeight.height3 : 0,
+    bottom: verticalScale(20),
+    left: horizontalscale(20),
+    right: horizontalscale(20),
     borderRadius: 50,
-    height: screenHeight.height10,
-    paddingHorizontal: 5,
+    height: verticalScale(65),
+    paddingHorizontal: horizontalscale(5),
     shadowColor: Colors.shadow,
     shadowOffset: {
       width: 0,
@@ -95,6 +98,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 0.33,
-    elevation: 5,
+    elevation: verticalScale(5),
+    ...ifIphoneX({ paddingTop: verticalScale(screenHeight.height3) }, { paddingTop: 0 }),
   },
 });

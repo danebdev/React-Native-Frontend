@@ -1,7 +1,15 @@
 import { OpenSans_300Light, useFonts } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
-import * as React from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import { ProgressBar } from 'react-native-paper';
 
 import { Header, Button, ClassesCards, LinearGradientText } from '../components';
@@ -9,10 +17,12 @@ import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import { Images } from '../constants/assets/Images';
 import appStyle from '../styles/appStyle';
-import { screenHeight, screenWidth } from '../styles/screenSize';
+import { getClout } from '../utils/Helper';
+import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 import { DummyClasses } from './DummyData';
 
 const Home = ({ navigation }) => {
+  const [clout, setClout] = useState(600);
   const [fontsLoaded, error] = useFonts({
     light: OpenSans_300Light,
   });
@@ -21,24 +31,34 @@ const Home = ({ navigation }) => {
     return <AppLoading />;
   }
 
+  const onPressSearch = () => {
+    // if (clout < 1500) {
+    //   setClout(clout + 200);
+    // } else {
+    //   setClout(0);
+    // }
+  };
+
   return (
-    <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
-      <View style={[appStyle.pt30, appStyle.pb15]}>
-        <Header />
-      </View>
+    <SafeAreaView style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+      <Header />
       <View style={appStyle.flex1}>
-        <View style={[appStyle.aiCenter, appStyle.pv10]}>
+        <View style={[appStyle.aiCenter, { paddingVertical: verticalScale(10) }]}>
           <View style={styles.profileMain}>
             <Image style={styles.profile} source={Images.dummyUser} />
           </View>
           <LinearGradientText name="robert fox" />
-          <Text style={[styles.sigma, { fontFamily: 'light' }]}>sigma</Text>
+          <Text style={[styles.sigma, { fontFamily: 'light' }]}>{getClout(clout)}</Text>
           <View style={styles.progressMain}>
-            <ProgressBar progress={0.6} color={Colors.progress} style={styles.progressBar} />
+            <ProgressBar
+              progress={clout / 1500}
+              color={Colors.progress}
+              style={styles.progressBar}
+            />
           </View>
-          <Text style={[styles.clout, { fontFamily: 'light' }]}>3323 clout</Text>
+          <Text style={[styles.clout, { fontFamily: 'light' }]}>{clout + ' '}clout</Text>
         </View>
-        <View style={[appStyle.aiCenter, appStyle.pv10]}>
+        <View style={[appStyle.aiCenter, { paddingVertical: verticalScale(10) }]}>
           <Text style={styles.yourClasses}>your classes</Text>
         </View>
         <View>
@@ -55,14 +75,13 @@ const Home = ({ navigation }) => {
             })}
           </ScrollView>
         </View>
-      </View>
-      <View>
         <TouchableOpacity style={styles.addAClassButton}>
           <Image style={styles.plusIcon} source={Icons.ic_plusCircle} />
           <Text style={styles.addAClass}>add a class</Text>
         </TouchableOpacity>
-        <View style={[appStyle.aiCenter, appStyle.jcFlexEnd]}>
+        <View style={[appStyle.aiCenter]}>
           <Button
+            onPress={onPressSearch}
             label="search"
             labelStyle={styles.buttonLabelStyle}
             leftIcon={Icons.ic_search}
@@ -70,17 +89,17 @@ const Home = ({ navigation }) => {
           />
         </View>
       </View>
-      <View style={{ height: screenHeight.height14 }} />
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
+  headerSection: {},
   profileMain: {
-    width: screenWidth.width35,
-    height: screenWidth.width35,
+    width: verticalScale(150),
+    height: verticalScale(150),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 100,
@@ -91,61 +110,63 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.24,
     shadowRadius: 16.41,
-    elevation: 20,
+    elevation: verticalScale(60),
   },
   profile: {
-    width: screenWidth.width35,
-    height: screenWidth.width35,
+    width: verticalScale(150),
+    height: verticalScale(150),
     resizeMode: 'contain',
     borderRadius: 100,
   },
   sigma: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: Colors.lightPurple,
   },
   progressMain: {
-    width: screenWidth.width80,
-    paddingVertical: 5,
+    width: horizontalscale(329),
+    paddingVertical: verticalScale(15),
   },
   progressBar: {
-    height: 22,
+    height: verticalScale(22),
     backgroundColor: Colors.white,
     borderRadius: 50,
   },
   clout: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: Colors.lightPurple,
   },
   yourClasses: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
   },
   classesMain: {
-    paddingHorizontal: 20,
+    paddingHorizontal: horizontalscale(20),
     ...appStyle.rowWrap,
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: verticalScale(10),
   },
   addAClassButton: {
-    ...appStyle.ph20,
+    paddingHorizontal: horizontalscale(20),
     ...appStyle.row,
     ...appStyle.aiCenter,
   },
   plusIcon: {
-    width: 16,
-    height: 16,
+    width: verticalScale(16),
+    height: verticalScale(16),
     resizeMode: 'contain',
-    marginRight: 5,
+    marginRight: horizontalscale(5),
   },
   addAClass: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '600',
     color: Colors.black,
   },
   buttonStyle: {
-    width: screenWidth.width35,
+    height: verticalScale(36),
+    width: verticalScale(155),
+    marginTop: verticalScale(15),
   },
   buttonLabelStyle: {
-    paddingLeft: 20,
+    paddingLeft: horizontalscale(20),
   },
 });

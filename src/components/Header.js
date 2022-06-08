@@ -5,13 +5,13 @@ import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import { Images } from '../constants/assets/Images';
 import appStyle from '../styles/appStyle';
-import { screenWidth } from '../styles/screenSize';
+import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
 
 const Header = (props) => {
   const { isChange } = props;
   return (
     <View style={styles.container}>
-      <View style={[appStyle.row, appStyle.aiCenter, Platform.OS === 'ios' && appStyle.mt15]}>
+      <View style={[appStyle.row, appStyle.aiCenter]}>
         <TouchableOpacity>
           <Image
             style={[styles.menu, { tintColor: isChange && Colors.white }]}
@@ -42,29 +42,30 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Platform.OS === 'android' ? verticalScale(30) : 0,
     ...appStyle.rowBtw,
-    ...appStyle.ph15,
+    paddingHorizontal: horizontalscale(15),
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   menu: {
-    width: 25,
-    height: 25,
+    width: verticalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
   logo: {
-    width: screenWidth.width35,
-    height: 26,
+    width: horizontalscale(100),
+    height: verticalScale(26),
     resizeMode: 'contain',
-    marginLeft: 15,
-    top: -2,
+    marginLeft: horizontalscale(15),
+    top: verticalScale(-2),
   },
   bell: {
-    width: 25,
-    height: 25,
+    width: verticalScale(25),
+    height: verticalScale(25),
     resizeMode: 'contain',
   },
   profileButton: {
-    marginLeft: 15,
+    marginLeft: horizontalscale(15),
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
@@ -78,8 +79,8 @@ const styles = StyleSheet.create({
     elevation: 20,
   },
   profile: {
-    width: 30,
-    height: 30,
+    width: verticalScale(30),
+    height: verticalScale(30),
     resizeMode: 'contain',
     borderRadius: 100,
   },

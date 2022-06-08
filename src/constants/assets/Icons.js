@@ -18,6 +18,7 @@ export const Icons = {
   ic_down_arrow: require(`${IconsPath}/ic_down_arrow.png`),
   ic_list: require(`${IconsPath}/ic_list.png`),
   ic_heart: require(`${IconsPath}/ic_heart.png`),
+  ic_filled_heart: require(`${IconsPath}/ic_filled_heart.png`),
   ic_arrow_up: require(`${IconsPath}/ic_arrow_up.png`),
   ic_arrow_down: require(`${IconsPath}/ic_arrow_down.png`),
   ic_like: require(`${IconsPath}/ic_like.png`),
@@ -27,5 +28,6 @@ export const Icons = {
   //learn screen icons
   ic_dots_menu: require(`${IconsPath}/ic_dots_menu.png`),
   ic_arrow_right: require(`${IconsPath}/ic_arrow_right.png`),
+  ic_left_arrow: require(`${IconsPath}/ic_left_arrow.png`),
 
 };

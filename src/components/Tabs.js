@@ -3,6 +3,7 @@ import { View, Image, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
 import { screenHeight, screenWidth } from '../styles/screenSize';
+import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 
 const Tabs = (props) => {
   const { focused, icon, label } = props;
@@ -36,16 +37,17 @@ const styles = StyleSheet.create({
   tabs: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: screenWidth.width25,
-    height: screenHeight.height7,
+    alignContent: 'center',
+    width: horizontalscale(90),
+    height: verticalScale(45),
     borderRadius: 30,
   },
   tabIcon: {
-    width: 28,
-    height: 28,
+    width: horizontalscale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   label: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
   },
 });

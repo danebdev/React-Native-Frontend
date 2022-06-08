@@ -6,7 +6,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
-import { screenWidth } from '../styles/screenSize';
+import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
 
 const LinearGradientText = (props) => {
   const { name } = props;
@@ -35,12 +35,13 @@ export default LinearGradientText;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: screenWidth.width12,
+    fontSize: verticalScale(50),
     alignSelf: 'center',
   },
   backSideView: {
     opacity: 0,
-    height: screenWidth.width15,
-    width: screenWidth.width100,
+    height: verticalScale(60),
+    width: horizontalscale(300),
+    marginVertical: verticalScale(10)
   },
 });

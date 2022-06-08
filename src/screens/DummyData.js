@@ -9,6 +9,7 @@ export const DummyClasses = [
 
 export const DummyPosts = [
   {
+    id: 1,
     userImage: Images.dummyUser,
     userName: 'Jorge Webb',
     time: '29d',
@@ -20,6 +21,7 @@ export const DummyPosts = [
     projectNumber: '5',
   },
   {
+    id: 2,
     userImage: Images.dummyUser,
     userName: 'SadCucumberMuncher',
     time: '23h',
@@ -31,6 +33,7 @@ export const DummyPosts = [
     projectNumber: '5',
   },
   {
+    id: 3,
     userImage: Images.dummyUser,
     userName: 'HappyTravelFinder',
     time: '23h',

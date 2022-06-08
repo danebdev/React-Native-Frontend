@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 
 import { Colors } from '../../constants/assets/Colors';
-import { screenWidth } from '../../styles/screenSize';
+import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
 
 const ListTabs = (props) => {
   const { isActive, onPress, icon } = props;
@@ -22,8 +22,8 @@ export default ListTabs;
 const styles = StyleSheet.create({
   tabs: {
     backgroundColor: Colors.white,
-    width: screenWidth.width50,
-    height: 50,
+    width: horizontalscale(187.5),
+    height: verticalScale(56),
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 1,
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.black,
   },
   tabIcon: {
-    width: 20,
-    height: 20,
+    width: verticalScale(24),
+    height: verticalScale(24),
     resizeMode: 'contain',
     tintColor: Colors.inactiveTabs,
   },

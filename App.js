@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AppNavigator from './src/navigation/AppNavigator';
+console.disableYellowBox = true;
 
 export default function App() {
   return (
-    <PaperProvider>
-      <StatusBar hidden={true} />
+    <SafeAreaProvider>
+      <StatusBar hidden={false} />
       <AppNavigator />
-    </PaperProvider>
+    </SafeAreaProvider>
   );
 }

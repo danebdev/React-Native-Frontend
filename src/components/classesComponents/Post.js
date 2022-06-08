@@ -5,6 +5,7 @@ import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { screenWidth } from '../../styles/screenSize';
+import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
 
 const Post = (props) => {
   const {
@@ -19,22 +20,27 @@ const Post = (props) => {
     showMore,
     onPressShowMore,
     onPressShowLess,
+    isLiked,
+    onPressHeart,
   } = props;
   return (
     <View style={styles.postMain}>
-      <TouchableOpacity style={styles.heart}>
-        <Image style={styles.heartIcon} source={Icons.ic_heart} />
+      <TouchableOpacity onPress={onPressHeart} style={styles.heart}>
+        {isLiked ? (
+          <Image style={styles.heartFilledIcon} source={Icons.ic_filled_heart} />
+        ) : (
+          <Image style={styles.heartIcon} source={Icons.ic_heart} />
+        )}
       </TouchableOpacity>
       <View style={[appStyle.rowBtw]}>
         <View style={[appStyle.row]}>
           <Image style={styles.userImage} source={userImage} />
-          <View style={appStyle.ml10}>
+          <View style={{ marginLeft: horizontalscale(10) }}>
             <Text style={styles.userName}>{userName}</Text>
             <Text style={styles.postTime}>{time}</Text>
           </View>
         </View>
       </View>
-
       <View style={styles.lowerSection}>
         <View style={[appStyle.rowBtw, appStyle.pr5, appStyle.mt10]}>
           <Text style={styles.postQuestion}>{postTitle}</Text>
@@ -71,7 +77,6 @@ const Post = (props) => {
           </>
         )}
       </View>
-
       {!showMore && (
         <TouchableOpacity onPress={onPressShowLess} style={styles.downArrow}>
           <Image style={styles.arrowIcon} source={Icons.ic_arrow_down} />
@@ -85,86 +90,92 @@ export default Post;
 
 const styles = StyleSheet.create({
   postMain: {
-    marginHorizontal: 10,
+    marginHorizontal: horizontalscale(10),
     backgroundColor: Colors.white,
     borderRadius: 8,
-    marginVertical: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    marginVertical: verticalScale(10),
+    paddingHorizontal: horizontalscale(20),
+    paddingVertical: verticalScale(20),
   },
   userImage: {
-    width: 32,
-    height: 32,
+    width: verticalScale(32),
+    height: verticalScale(32),
     resizeMode: 'contain',
     borderRadius: 100,
   },
   userName: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     fontWeight: '700',
     color: Colors.black,
   },
   postTime: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     fontWeight: '400',
     color: Colors.midGray,
   },
   heart: {
     position: 'absolute',
-    right: 20,
-    top: 15,
+    right: horizontalscale(20),
+    top: verticalScale(15),
     zIndex: 5,
   },
   heartIcon: {
-    width: 20,
-    height: 20,
+    width: verticalScale(18),
+    height: verticalScale(18),
     resizeMode: 'contain',
     tintColor: Colors.black,
   },
+  heartFilledIcon: {
+    width: verticalScale(18),
+    height: verticalScale(18),
+    resizeMode: 'contain',
+    tintColor: Colors.theme,
+  },
   postQuestion: {
-    fontSize: 14,
+    fontSize: verticalScale(14),
     fontWeight: 'bold',
     color: Colors.black,
-    width: screenWidth.width65,
+    width: horizontalscale(265),
   },
   arrowIcon: {
-    width: 15,
-    height: 15,
+    width: verticalScale(15),
+    height: verticalScale(15),
     resizeMode: 'contain',
   },
   postDescriptionMain: {
-    width: screenWidth.width65,
+    width: horizontalscale(265),
     marginVertical: 5,
   },
   postDescription: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     color: Colors.black,
   },
   thumbAndChat: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: horizontalscale(15),
   },
   thumbAndChatIcon: {
-    width: 18,
-    height: 18,
+    width: verticalScale(14),
+    height: verticalScale(14),
     resizeMode: 'contain',
     tintColor: Colors.midGray,
     marginRight: 2,
   },
   thumbAndChatCount: {
-    fontSize: 14,
+    fontSize: verticalScale(14),
     color: Colors.midGray,
   },
   projectNumber: {
     backgroundColor: Colors.softGreen,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingHorizontal: horizontalscale(10),
+    paddingVertical: verticalScale(4),
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   projectNumberText: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     color: Colors.black,
   },
   lowerSection: {
@@ -172,8 +183,8 @@ const styles = StyleSheet.create({
   },
   downArrow: {
     position: 'absolute',
-    bottom: 25,
-    right: 25,
+    bottom: verticalScale(25),
+    right: horizontalscale(25),
     zIndex: 5,
   },
 });

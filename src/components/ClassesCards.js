@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors } from '../constants/assets/Colors';
 import appStyle from '../styles/appStyle';
 import { screenHeight, screenWidth } from '../styles/screenSize';
+import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 
 const ClassesCards = (props) => {
   const { course, days, timing } = props;
@@ -26,35 +27,35 @@ export default ClassesCards;
 const styles = StyleSheet.create({
   //box style
   boxMain: {
-    width: screenWidth.width40 + 15,
-    height: screenHeight.height10,
+    width: horizontalscale(164),
+    height: verticalScale(80),
     backgroundColor: Colors.white,
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 15,
-    paddingHorizontal: 20,
+    marginBottom: verticalScale(15),
   },
   subjectTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: Colors.black,
   },
   days: {
+    fontSize: moderateScale(10),
     color: Colors.themeDull,
     fontWeight: '600',
   },
   centerLine: {
     borderLeftWidth: 1.5,
     borderColor: Colors.themeDull,
-    height: 15,
-    marginHorizontal: 5,
+    height: verticalScale(15),
+    marginHorizontal: horizontalscale(5),
   },
   dayTimeSection: {
     ...appStyle.rowCenter,
     backgroundColor: Colors.softPink,
-    width: screenWidth.width30,
-    paddingVertical: 3,
+    width: verticalScale(127),
+    paddingVertical: verticalScale(3),
     borderRadius: 50,
-    marginTop: 5,
+    marginTop: verticalScale(10),
   },
 });

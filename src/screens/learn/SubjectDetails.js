@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import { Header, SubjectTopicCard } from '../../components';
+import { Screen } from '../../constants';
 import { Colors } from '../../constants/assets/Colors';
 import appStyle from '../../styles/appStyle';
 import { screenHeight } from '../../styles/screenSize';
@@ -9,6 +10,14 @@ import { DummySubjectsTopics } from '../DummyData';
 
 const SubjectDetails = ({ route, navigation }) => {
   const { subject } = route.params;
+
+  const onPressSubject = (item) => {
+    if (item.topicDescription !== '') {
+      navigation.navigate(Screen.topicDetails, { subject: subject })
+    } else {
+      navigation.navigate(Screen.optionsSelection, { subject: subject })
+    }
+  }
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -32,7 +41,7 @@ const SubjectDetails = ({ route, navigation }) => {
             return (
               <SubjectTopicCard
                 key={index}
-                onPress={() => {}}
+                onPress={() => onPressSubject(item)}
                 topicTitle={item.topicTitle}
                 topicDescription={item.topicDescription}
                 likes={item.likes}

@@ -1,18 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 import { Button, Header, ListTabs, Post } from '../components';
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import { Keys } from '../constants/keys/Keys';
 import appStyle from '../styles/appStyle';
-import { screenHeight, screenWidth } from '../styles/screenSize';
+import { screenWidth } from '../styles/screenSize';
+import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
 import { DummyPosts, DummyLikedPosts } from './DummyData';
 
 const ClassesScreen = ({ navigation }) => {
+  const [likedPosts, setLikedPosts] = useState([]);
+
   const [tab1, setTab1] = useState(true);
   const [tab2, setTab2] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState([]);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: 'data structures', value: 'data structures' },
+    { label: 'linear algebra', value: 'linear algebra' },
+    { label: 'us history', value: 'us history' },
+    { label: 'negotiation', value: 'negotiation' },
+  ]);
 
   const onPressTabs = (type) => {
     if (Keys.listTab === type) {
@@ -34,23 +47,56 @@ const ClassesScreen = ({ navigation }) => {
     }
   };
 
-  const onPressShowLess = (index) => {
-    setSelectedIndex(index);
+  const onPressHeart = (post) => {
+    if (likedPosts.length === 0) {
+      setLikedPosts([...likedPosts, post]);
+    } else {
+      const isAlreadyPresent = likedPosts.includes(post);
+      if (!isAlreadyPresent) {
+        setLikedPosts([...likedPosts, post]);
+      } else {
+        const newArray = likedPosts.filter((i, index) => i.id !== post.id);
+        setLikedPosts(newArray);
+      }
+    }
   };
 
   return (
-    <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
-      <View style={[appStyle.pt30, appStyle.pb15]}>
+    <SafeAreaView style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+      <View style={styles.headerSection}>
         <Header />
-        <View style={[appStyle.aiCenter, appStyle.pt30]}>
+        <View style={[appStyle.aiCenter]}>
           <Text style={styles.t12}>select your class</Text>
-          <TouchableOpacity activeOpacity={0.8} style={styles.dropdown}>
+          {/* <TouchableOpacity activeOpacity={0.8} style={styles.dropdown}>
             <Text style={styles.dropdownText}>data structures</Text>
             <Image style={styles.downArrow} source={Icons.ic_down_arrow} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <View style={{ width: screenWidth.width40 }}>
+            <DropDownPicker
+              style={{ borderColor: Colors.lightMidGray }}
+              labelStyle={{ color: Colors.lightPink }}
+              dropDownContainerStyle={{ borderColor: Colors.lightMidGray, color: Colors.lightPink }}
+              tickIconStyle={styles.tickIcon}
+              listItemLabelStyle={{ color: Colors.lightPink }}
+              placeholder="data structures"
+              placeholderStyle={styles.dropdownText}
+              ArrowDownIconComponent={({ style }) => (
+                <Image style={styles.downArrow} source={Icons.ic_down_arrow} />
+              )}
+              ArrowUpIconComponent={({ style }) => (
+                <Image style={styles.downArrow} source={Icons.ic_arrow_up} />
+              )}
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+            />
+          </View>
         </View>
       </View>
-      <View style={[appStyle.row]}>
+      <View style={[appStyle.row, { zIndex: -2 }]}>
         <ListTabs isActive={tab1} onPress={() => onPressTabs(Keys.listTab)} icon={Icons.ic_list} />
         <ListTabs
           isActive={tab2}
@@ -59,13 +105,15 @@ const ClassesScreen = ({ navigation }) => {
         />
       </View>
       {tab1 && (
-        <View style={{ height: screenHeight.height52 }}>
+        <View style={{ height: verticalScale(450), zIndex: -2 }}>
           <ScrollView>
             {DummyPosts.map((item, index) => {
               const IndexFound = selectedIndex.find((i) => i === index);
+              const found = likedPosts.find((i, index) => i.id === item.id);
               return (
                 <Post
-                  Key={index}
+                  key={index}
+                  onPressHeart={() => onPressHeart(item)}
                   userImage={item.userImage}
                   userName={item.userName}
                   time={item.time}
@@ -77,6 +125,7 @@ const ClassesScreen = ({ navigation }) => {
                   onPressShowMore={() => onPressShowMore(index)}
                   onPressShowLess={() => onPressShowMore(index)}
                   showMore={IndexFound === index}
+                  isLiked={found && found}
                 />
               );
             })}
@@ -84,13 +133,14 @@ const ClassesScreen = ({ navigation }) => {
         </View>
       )}
       {tab2 && (
-        <View style={{ height: screenHeight.height52 }}>
+        <View style={{ height: verticalScale(450), zIndex: -2 }}>
           <ScrollView>
-            {DummyLikedPosts.map((item, index) => {
+            {likedPosts.map((item, index) => {
               const IndexFound = selectedIndex.find((i) => i === index);
               return (
                 <Post
-                  Key={index}
+                  key={index}
+                  onPressHeart={() => onPressHeart(item)}
                   userImage={item.userImage}
                   userName={item.userName}
                   time={item.time}
@@ -102,6 +152,7 @@ const ClassesScreen = ({ navigation }) => {
                   onPressShowMore={() => onPressShowMore(index)}
                   onPressShowLess={() => onPressShowMore(index)}
                   showMore={IndexFound === index}
+                  isLiked
                 />
               );
             })}
@@ -116,26 +167,30 @@ const ClassesScreen = ({ navigation }) => {
           buttonStyle={styles.buttonStyle}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 export default ClassesScreen;
 
 const styles = StyleSheet.create({
+  headerSection: {
+    paddingBottom: verticalScale(15),
+  },
   t12: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
+    paddingTop: verticalScale(25),
+    paddingBottom: verticalScale(8),
   },
   dropdown: {
-    width: screenWidth.width45,
-    height: 40,
+    width: horizontalscale(172),
+    height: verticalScale(36),
     borderWidth: 1,
     borderColor: Colors.lightMidGray,
     borderRadius: 8,
     backgroundColor: Colors.white,
     ...appStyle.rowBtw,
-    ...appStyle.ph20,
-    ...appStyle.mt10,
+    paddingHorizontal: horizontalscale(20),
     shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
@@ -146,18 +201,26 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   dropdownText: {
-    fontSize: 16,
+    fontSize: verticalScale(16),
     color: Colors.lightPink,
   },
   downArrow: {
-    width: 15,
-    height: 15,
+    width: verticalScale(15),
+    height: verticalScale(15),
     resizeMode: 'contain',
+    tintColor: Colors.lightPink,
   },
   buttonStyle: {
-    width: screenWidth.width40,
+    width: horizontalscale(155),
+    height: verticalScale(36),
   },
   buttonLabelStyle: {
     paddingLeft: 20,
+  },
+  tickIcon: {
+    tintColor: Colors.lightPink,
+    width: 14,
+    height: 14,
+    resizeMode: 'contain',
   },
 });

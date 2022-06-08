@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
+import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 
 const Button = (props) => {
   const { buttonStyle, iconStyle, leftIcon, labelStyle, label, onPress } = props;
@@ -21,18 +22,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 40,
+    height: verticalScale(40),
     borderRadius: 50,
   },
   icon: {
-    width: 18,
-    height: 18,
+    width: horizontalscale(18),
+    height: verticalScale(18),
     resizeMode: 'contain',
     position: 'absolute',
-    left: 20,
+    left: horizontalscale(20),
   },
   label: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: Colors.white,
   },
