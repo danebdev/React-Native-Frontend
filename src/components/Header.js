@@ -42,7 +42,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Platform.OS === 'android' ? verticalScale(30) : 0,
+    marginTop: Platform.OS === 'android' ? verticalScale(10) : 5,
     ...appStyle.rowBtw,
     paddingHorizontal: horizontalscale(15),
     backgroundColor: 'rgba(0, 0, 0, 0)',

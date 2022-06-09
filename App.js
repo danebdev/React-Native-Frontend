@@ -7,7 +7,6 @@ console.disableYellowBox = true;
 export default function App() {
   return (
     <SafeAreaProvider>
-      <StatusBar hidden={false} />
       <AppNavigator />
     </SafeAreaProvider>
   );

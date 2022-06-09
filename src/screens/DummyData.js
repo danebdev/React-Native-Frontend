@@ -132,3 +132,21 @@ export const DummySubjectsTopics = [
     likes: '12',
   },
 ];
+
+
+export const DummyOptions = [
+  { id: 1, option: 'Option 1' },
+  { id: 2, option: 'Option 2' },
+  { id: 3, option: 'Option 3' },
+  { id: 4, option: 'Option 4' },
+  { id: 5, option: 'Option 5' },
+];
+
+export const DummyDays = [
+  { id: 1, label: 'monday', value: 'm' },
+  { id: 2, label: 'tuesday', value: 't' },
+  { id: 3, label: 'wednesday', value: 'w' },
+  { id: 4, label: 'thursday', value: 'tr' },
+  { id: 5, label: 'friday', value: 'f' },
+  { id: 6, label: 'saturday', value: 's' },
+];

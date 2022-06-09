@@ -4,7 +4,8 @@ import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { screenHeight, screenWidth } from '../../styles/screenSize';
+import { screenWidth } from '../../styles/screenSize';
+import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
 import Button from '../Button';
 
 const SubjectCard = (props) => {
@@ -41,48 +42,48 @@ export default SubjectCard;
 
 const styles = StyleSheet.create({
   cardMain: {
-    width: screenWidth.width95,
-    height: screenHeight.height18,
+    width: horizontalscale(362),
+    height: verticalScale(128),
     backgroundColor: Colors.white,
     borderRadius: 10,
-    paddingLeft: 30,
-    paddingRight: 10,
-    paddingVertical: 15,
+    paddingLeft: horizontalscale(30),
+    paddingRight: horizontalscale(10),
+    paddingVertical: verticalScale(15),
     justifyContent: 'space-between',
-    marginVertical: 10,
+    marginVertical: verticalScale(10),
   },
   time: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     color: Colors.midGray,
-    top: -10,
+    top: verticalScale(-10),
   },
   dotsMenu: {
-    width: 20,
-    height: 20,
+    width: verticalScale(20),
+    height: verticalScale(20),
     resizeMode: 'contain',
   },
   subjectTitle: {
-    fontSize: 16,
+    fontSize: verticalScale(16),
     fontWeight: '600',
     color: Colors.black,
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
   },
   buttonStyle: {
-    width: screenWidth.width25,
-    height: 30,
+    width: horizontalscale(83),
+    height: verticalScale(25),
     borderRadius: 10,
   },
   buttonLabelStyle: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     fontWeight: '600',
   },
   completedPercentage: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     fontWeight: '700',
     color: Colors.lightGreen,
   },
   questions: {
-    fontSize: 10,
+    fontSize: verticalScale(10),
     fontWeight: '700',
     color: Colors.black,
   },

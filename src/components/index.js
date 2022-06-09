@@ -7,6 +7,8 @@ import ListTabs from './classesComponents/ListTabs';
 import Post from './classesComponents/Post';
 import SubjectCard from './learnComponent/SubjectCard';
 import SubjectTopicCard from './learnComponent/SubjectTopicCard';
+import Input from './Input';
+import CheckBox from './CheckBox';
 
 export {
   Header,
@@ -18,4 +20,6 @@ export {
   Post,
   SubjectCard,
   SubjectTopicCard,
+  Input,
+  CheckBox,
 };

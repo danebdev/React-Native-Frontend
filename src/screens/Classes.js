@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView, SafeAreaView } from 'react-n
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { Button, Header, ListTabs, Post } from '../components';
+import MyStatusBar from '../components/MyStatusBar';
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import { Keys } from '../constants/keys/Keys';
@@ -62,16 +63,13 @@ const ClassesScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+    <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+      <MyStatusBar backgroundColor={Colors.backgroundGray} barStyle="dark-content" />
       <View style={styles.headerSection}>
         <Header />
         <View style={[appStyle.aiCenter]}>
           <Text style={styles.t12}>select your class</Text>
-          {/* <TouchableOpacity activeOpacity={0.8} style={styles.dropdown}>
-            <Text style={styles.dropdownText}>data structures</Text>
-            <Image style={styles.downArrow} source={Icons.ic_down_arrow} />
-          </TouchableOpacity> */}
-          <View style={{ width: screenWidth.width40 }}>
+          <View style={{ width: screenWidth.width45 }}>
             <DropDownPicker
               style={{ borderColor: Colors.lightMidGray }}
               labelStyle={{ color: Colors.lightPink }}
@@ -167,7 +165,7 @@ const ClassesScreen = ({ navigation }) => {
           buttonStyle={styles.buttonStyle}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

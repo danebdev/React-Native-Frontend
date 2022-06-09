@@ -1,11 +1,12 @@
-import * as React from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 import { Header, SubjectCard } from '../../components';
+import MyStatusBar from '../../components/MyStatusBar';
 import { Screen } from '../../constants';
 import { Colors } from '../../constants/assets/Colors';
 import appStyle from '../../styles/appStyle';
-import { screenHeight } from '../../styles/screenSize';
+import { verticalScale } from '../../utils/ScaleUtils';
 import { DummySubjects } from '../DummyData';
 
 const Learn = ({ navigation }) => {
@@ -15,15 +16,19 @@ const Learn = ({ navigation }) => {
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+      <MyStatusBar backgroundColor={Colors.theme} barStyle="light-content" />
+      <View style={styles.appBar} />
+      <View style={styles.content} />
       <View style={styles.headerSection}>
         <Header isChange />
-        <View style={[appStyle.aiCenter, appStyle.pt30]}>
+        <View style={[appStyle.aiCenter, { paddingTop: verticalScale(20) }]}>
           <Text style={styles.t12}>ready to learn?</Text>
           <Text style={styles.getStartedText}>click on a class to get started</Text>
         </View>
       </View>
-      <View style={{ height: screenHeight.height68 }}>
-        <ScrollView contentContainerStyle={[appStyle.aiCenter, appStyle.pv10]}>
+      <View style={{ height: verticalScale(600) }}>
+        <ScrollView
+          contentContainerStyle={[appStyle.aiCenter, { paddingVertical: verticalScale(10) }]}>
           {DummySubjects.map((item, index) => {
             return (
               <SubjectCard
@@ -46,18 +51,17 @@ export default Learn;
 
 const styles = StyleSheet.create({
   headerSection: {
-    ...appStyle.pt30,
-    ...appStyle.pb20,
+    paddingBottom: verticalScale(20),
     backgroundColor: Colors.theme,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
   },
   t12: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     color: Colors.white,
   },
   getStartedText: {
-    fontSize: 16,
+    fontSize: verticalScale(16),
     fontWeight: '600',
     color: Colors.white,
   },

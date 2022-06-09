@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { screenHeight, screenWidth } from '../../styles/screenSize';
+import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
 
 const SubjectTopicCard = (props) => {
   const { topicTitle, topicDescription, likes, onPress } = props;
@@ -33,46 +33,46 @@ export default SubjectTopicCard;
 const styles = StyleSheet.create({
   // cards style here ====
   cardMain: {
-    width: screenWidth.width95,
-    height: screenHeight.height18,
+    width: horizontalscale(360),
+    height: verticalScale(138),
     backgroundColor: Colors.white,
     borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    marginVertical: 10,
+    paddingHorizontal: horizontalscale(15),
+    paddingVertical: verticalScale(15),
+    marginVertical: verticalScale(10),
   },
   cardTitle: {
-    fontSize: 15,
+    fontSize: verticalScale(15),
     fontWeight: '800',
     color: Colors.black,
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: verticalScale(12),
     fontWeight: '600',
     color: Colors.black,
-    paddingVertical: 5,
-    width: screenWidth.width65,
-    height: screenHeight.height9_5,
+    paddingVertical: verticalScale(5),
+    width: horizontalscale(265),
+    height: verticalScale(72),
   },
   thumb: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: horizontalscale(15),
   },
   thumbIcon: {
-    width: 18,
-    height: 18,
+    width: verticalScale(18),
+    height: verticalScale(18),
     resizeMode: 'contain',
     tintColor: Colors.midGray,
-    marginRight: 2,
+    marginRight: verticalScale(2),
   },
   likes: {
-    fontSize: 14,
+    fontSize: verticalScale(14),
     color: Colors.midGray,
   },
   rightArrow: {
-    width: 26,
-    height: 26,
+    width: verticalScale(26),
+    height: verticalScale(26),
     resizeMode: 'contain',
     tintColor: Colors.theme,
   },

@@ -183,8 +183,8 @@ const styles = StyleSheet.create({
   },
   downArrow: {
     position: 'absolute',
-    bottom: verticalScale(25),
-    right: horizontalscale(25),
+    bottom: verticalScale(20),
+    right: horizontalscale(20),
     zIndex: 5,
   },
 });

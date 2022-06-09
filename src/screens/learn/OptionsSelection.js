@@ -4,6 +4,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 import { Header } from '../../components';
+import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
@@ -22,6 +23,7 @@ const OptionsSelection = ({ route, navigation }) => {
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
+      <MyStatusBar backgroundColor={Colors.theme} barStyle="light-content" />
       <View style={styles.headerSection}>
         <Header isChange />
         <View style={[appStyle.row, appStyle.jcSpaceBetween, appStyle.ph20, appStyle.aiFlexEnd]}>
@@ -56,7 +58,6 @@ export default OptionsSelection;
 
 const styles = StyleSheet.create({
   headerSection: {
-    ...appStyle.pt30,
     ...appStyle.pb20,
     backgroundColor: Colors.theme,
     borderBottomEndRadius: 20,

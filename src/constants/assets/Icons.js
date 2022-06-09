@@ -13,6 +13,8 @@ export const Icons = {
   //Home page icons 
   ic_plusCircle: require(`${IconsPath}/ic_circle_pluss.png`),
   ic_search: require(`${IconsPath}/ic_search.png`),
+  ic_cross: require(`${IconsPath}/ic_cross.png`),
+  ic_tick: require(`${IconsPath}/ic_tick.png`),
 
   //Classes screen icons
   ic_down_arrow: require(`${IconsPath}/ic_down_arrow.png`),
@@ -29,5 +31,6 @@ export const Icons = {
   ic_dots_menu: require(`${IconsPath}/ic_dots_menu.png`),
   ic_arrow_right: require(`${IconsPath}/ic_arrow_right.png`),
   ic_left_arrow: require(`${IconsPath}/ic_left_arrow.png`),
+  ic_right_arrow: require(`${IconsPath}/ic_right_arrow.png`),
 
 };
