@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
 import appStyle from '../styles/appStyle';
-import { screenHeight, screenWidth } from '../styles/screenSize';
 import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 
 const ClassesCards = (props) => {

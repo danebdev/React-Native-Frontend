@@ -29,17 +29,17 @@ const TopicDetails = ({ route, navigation }) => {
 
   const onPressSliderButton = (type) => {
     if (type === 'right') {
-      setAnimationType('slideInRight')
+      setAnimationType('slideInRight');
       setTimeout(() => {
-        setOptionSection(!optionSection)
+        setOptionSection(!optionSection);
       }, 500);
     } else {
-      setAnimationType('slideOutRight')
+      setAnimationType('slideOutRight');
       setTimeout(() => {
-        setOptionSection(!optionSection)
+        setOptionSection(!optionSection);
       }, 500);
     }
-  }
+  };
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -58,19 +58,19 @@ const TopicDetails = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-      {!optionSection ?
+      {!optionSection ? (
         <View style={styles.boxMain}>
           <View>
             <Text style={styles.title}>Introduction</Text>
             <Text style={styles.description}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at interdum nibh.
               Integer magna magna, ornare at tincidunt pretium, ultricies quis sem. Vivamus eget
-              lectus ac eros facilisis feugiat. Praesent ultricies nisl at dui feugiat facilisis. Nunc
-              vitae maximus metus. Quisque faucibus ante ut metus semper, eu dignissim orci fringilla.
-              Aliquam varius suscipit turpis tempus maximus. Mauris vel est nisi. Vestibulum convallis
-              lacus risus, sit amet luctus eros semper quis. Fusce nulla magna, consectetur in libero
-              sed, fermentum mattis arcu. Maecenas volutpat vitae velit rhoncus ultricies. Fusce elit
-              nibh, eleifend non lacus vel, mattis placerat justo
+              lectus ac eros facilisis feugiat. Praesent ultricies nisl at dui feugiat facilisis.
+              Nunc vitae maximus metus. Quisque faucibus ante ut metus semper, eu dignissim orci
+              fringilla. Aliquam varius suscipit turpis tempus maximus. Mauris vel est nisi.
+              Vestibulum convallis lacus risus, sit amet luctus eros semper quis. Fusce nulla magna,
+              consectetur in libero sed, fermentum mattis arcu. Maecenas volutpat vitae velit
+              rhoncus ultricies. Fusce elit nibh, eleifend non lacus vel, mattis placerat justo
             </Text>
           </View>
           <View style={[appStyle.row, appStyle.aiCenter, appStyle.ph15]}>
@@ -88,7 +88,7 @@ const TopicDetails = ({ route, navigation }) => {
             </View>
           </View>
         </View>
-        :
+      ) : (
         <Animatable.View animation={animationType} style={styles.boxMainOptions}>
           <View style={styles.questionMian}>
             <Text style={styles.question}>What is the answer?</Text>
@@ -105,16 +105,20 @@ const TopicDetails = ({ route, navigation }) => {
             );
           })}
         </Animatable.View>
-      }
-      {!optionSection ?
-        <TouchableOpacity onPress={() => onPressSliderButton('right')} style={styles.rightSheetButton}>
+      )}
+      {!optionSection ? (
+        <TouchableOpacity
+          onPress={() => onPressSliderButton('right')}
+          style={styles.rightSheetButton}>
           <Image style={styles.leftArrowIcon} source={Icons.ic_left_arrow} />
         </TouchableOpacity>
-        :
-        <TouchableOpacity onPress={() => onPressSliderButton('left')} style={styles.leftSheetButton}>
+      ) : (
+        <TouchableOpacity
+          onPress={() => onPressSliderButton('left')}
+          style={styles.leftSheetButton}>
           <Image style={styles.leftArrowIcon} source={Icons.ic_right_arrow} />
         </TouchableOpacity>
-      }
+      )}
     </View>
   );
 };
@@ -253,7 +257,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: 20,
     marginTop: verticalScale(22),
-
   },
   optionsTag: {
     backgroundColor: Colors.offWhite,
@@ -262,7 +265,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    marginRight: horizontalscale(12)
+    marginRight: horizontalscale(12),
   },
   optionSerials: {
     fontSize: verticalScale(10),
@@ -271,5 +274,5 @@ const styles = StyleSheet.create({
   options: {
     fontSize: verticalScale(12),
     fontWeight: '700',
-  }
+  },
 });

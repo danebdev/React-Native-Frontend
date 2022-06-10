@@ -1,16 +1,8 @@
 import { OpenSans_300Light, useFonts } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
 import React, { useState, createRef } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
-import ActionSheet, { SheetManager } from 'react-native-actions-sheet';
+import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import ActionSheet from 'react-native-actions-sheet';
 import { ProgressBar } from 'react-native-paper';
 
 import { Header, Button, ClassesCards, LinearGradientText, Input, CheckBox } from '../components';
@@ -26,7 +18,6 @@ import { DummyClasses, DummyDays } from './DummyData';
 const addClassSheetRef = createRef();
 
 const Home = ({ navigation }) => {
-
   const [clout, setClout] = useState(600);
   const [isChecked, setIsChecked] = useState(false);
 
@@ -42,7 +33,7 @@ const Home = ({ navigation }) => {
     addClassSheetRef.current?.setModalVisible();
   };
 
-  const onPressSearch = () => { };
+  const onPressSearch = () => {};
 
   const onPressCheckBox = () => {
     setIsChecked(!isChecked);
@@ -117,7 +108,6 @@ const Home = ({ navigation }) => {
               //value
               label="Class Name"
               placeholder="enter class name"
-
             />
             <View>
               <Text style={styles.label}>Select Days</Text>
@@ -245,17 +235,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     paddingTop: verticalScale(10),
     paddingBottom: verticalScale(30),
-    paddingHorizontal: horizontalscale(20)
+    paddingHorizontal: horizontalscale(20),
   },
   addClassMain: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   addClassSheetText: {
     fontSize: verticalScale(20),
     lineHeight: verticalScale(20),
-    fontWeight: '800'
+    fontWeight: '800',
   },
   crossButton: {
     position: 'absolute',
@@ -264,20 +254,20 @@ const styles = StyleSheet.create({
   crossIcon: {
     width: verticalScale(24),
     height: verticalScale(24),
-    resizeMode: 'contain'
+    resizeMode: 'contain',
   },
   label: {
     fontSize: verticalScale(12),
     lineHeight: verticalScale(20),
     fontWeight: '700',
-    marginBottom: verticalScale(5)
+    marginBottom: verticalScale(5),
   },
   days: {
     marginLeft: horizontalscale(10),
     fontSize: verticalScale(16),
     lineHeight: verticalScale(22),
     fontWeight: '400',
-    marginBottom: verticalScale(5)
+    marginBottom: verticalScale(5),
   },
   timeInput: {
     borderWidth: 1,
@@ -289,6 +279,6 @@ const styles = StyleSheet.create({
   timeText: {
     fontSize: verticalScale(16),
     lineHeight: verticalScale(21),
-    fontWeight: '400'
+    fontWeight: '400',
   },
 });

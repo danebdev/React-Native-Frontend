@@ -1,12 +1,11 @@
 import { OpenSans_300Light, useFonts } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import { Header } from '../../components';
 import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
-import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { screenHeight, screenWidth } from '../../styles/screenSize';
 
@@ -109,7 +108,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-
   },
   optionsTag: {
     backgroundColor: Colors.offWhite,
@@ -118,9 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    marginRight: 10
+    marginRight: 10,
   },
-  options: {
-
-  }
+  options: {},
 });

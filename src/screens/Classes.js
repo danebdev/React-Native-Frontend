@@ -10,7 +10,7 @@ import { Keys } from '../constants/keys/Keys';
 import appStyle from '../styles/appStyle';
 import { screenWidth } from '../styles/screenSize';
 import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
-import { DummyPosts, DummyLikedPosts } from './DummyData';
+import { DummyPosts } from './DummyData';
 
 const ClassesScreen = ({ navigation }) => {
   const [likedPosts, setLikedPosts] = useState([]);

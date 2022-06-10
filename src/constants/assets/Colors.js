@@ -20,5 +20,5 @@ export const Colors = {
   softGreen: '#E1F9F2',
   lightGreen: '#2EE66B',
   yellow: '#FFC700',
-  offWhite: '#EDE8E3'
+  offWhite: '#EDE8E3',
 };

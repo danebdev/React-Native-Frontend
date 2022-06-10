@@ -10,7 +10,7 @@ export const Icons = {
   menu: require(`${IconsPath}/ic_menu.png`),
   bell: require(`${IconsPath}/ic_bell.png`),
 
-  //Home page icons 
+  //Home page icons
   ic_plusCircle: require(`${IconsPath}/ic_circle_pluss.png`),
   ic_search: require(`${IconsPath}/ic_search.png`),
   ic_cross: require(`${IconsPath}/ic_cross.png`),
@@ -32,5 +32,4 @@ export const Icons = {
   ic_arrow_right: require(`${IconsPath}/ic_arrow_right.png`),
   ic_left_arrow: require(`${IconsPath}/ic_left_arrow.png`),
   ic_right_arrow: require(`${IconsPath}/ic_right_arrow.png`),
-
 };

@@ -133,7 +133,6 @@ export const DummySubjectsTopics = [
   },
 ];
 
-
 export const DummyOptions = [
   { id: 1, option: 'Option 1' },
   { id: 2, option: 'Option 2' },
