@@ -4,22 +4,28 @@ import React, { useState, createRef } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
 import { ProgressBar } from 'react-native-paper';
+import Modal from "react-native-modal";
 
-import { Header, Button, ClassesCards, LinearGradientText, Input, CheckBox } from '../components';
-import MyStatusBar from '../components/MyStatusBar';
-import { Colors } from '../constants/assets/Colors';
-import { Icons } from '../constants/assets/Icons';
-import { Images } from '../constants/assets/Images';
-import appStyle from '../styles/appStyle';
-import { getClout } from '../utils/Helper';
-import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
-import { DummyClasses, DummyDays } from './DummyData';
+import { Header, Button, ClassesCards, LinearGradientText, Input, CheckBox } from '../../components';
+import MyStatusBar from '../../components/MyStatusBar';
+import { Colors } from '../../constants/assets/Colors';
+import { Icons } from '../../constants/assets/Icons';
+import { Images } from '../../constants/assets/Images';
+import appStyle from '../../styles/appStyle';
+import { getClout } from '../../utils/Helper';
+import { horizontalscale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
+import { DummyClasses, DummyDays, DummyTime } from '../DummyData';
+import { screenHeight, screenWidth } from '../../styles/screenSize';
 
 const addClassSheetRef = createRef();
 
 const Home = ({ navigation }) => {
   const [clout, setClout] = useState(600);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isTimeModelVisible, setIsTimeModelVisible] = useState(false);
+
+  const [className, setClassName] = useState([]);
+  const [days, setDays] = useState([]);
+  const [classTime, setClassTime] = useState('1:00 PM');
 
   const [fontsLoaded, error] = useFonts({
     light: OpenSans_300Light,
@@ -33,14 +39,35 @@ const Home = ({ navigation }) => {
     addClassSheetRef.current?.setModalVisible();
   };
 
-  const onPressSearch = () => {};
+  const onPressSearch = () => {
+    navigation.navigate('Search')
+  };
 
-  const onPressCheckBox = () => {
-    setIsChecked(!isChecked);
+  const onSelectTime = (time) => {
+    setClassTime(time)
+    setIsTimeModelVisible(false)
+  };
+
+  const onPressCheckBox = (day) => {
+    if (days.length === 0) {
+      setDays([...days, day.value]);
+    } else {
+      const isAlreadyPresent = days.includes(day.value);
+      if (!isAlreadyPresent) {
+        setDays([...days, day.value]);
+      } else {
+        const newArray = days.filter((i, index) => i !== day.value);
+        setDays(newArray);
+      }
+    }
   };
 
   const onPressClose = () => {
     addClassSheetRef.current?.setModalVisible(false);
+  };
+
+  const onPressCloseTimeModel = () => {
+    setIsTimeModelVisible(false);
   };
 
   return (
@@ -112,9 +139,10 @@ const Home = ({ navigation }) => {
             <View>
               <Text style={styles.label}>Select Days</Text>
               {DummyDays.map((item, index) => {
+                const found = days.find((i, index) => i === item.value);
                 return (
                   <View key={index} style={[appStyle.row, appStyle.aiCenter]}>
-                    <CheckBox onPress={onPressCheckBox} isChecked={isChecked} />
+                    <CheckBox onPress={() => onPressCheckBox(item)} isChecked={found && found} />
                     <Text style={styles.days}>{item.label}</Text>
                   </View>
                 );
@@ -122,8 +150,8 @@ const Home = ({ navigation }) => {
             </View>
             <View style={{ marginTop: verticalScale(5) }}>
               <Text style={styles.label}>Select Time</Text>
-              <TouchableOpacity style={styles.timeInput}>
-                <Text style={styles.timeText}>1:00 PM</Text>
+              <TouchableOpacity onPress={() => setIsTimeModelVisible(true)} style={styles.timeInput}>
+                <Text style={styles.timeText}>{classTime}</Text>
               </TouchableOpacity>
             </View>
 
@@ -149,6 +177,25 @@ const Home = ({ navigation }) => {
           </ScrollView>
         </View>
       </ActionSheet>
+      <Modal isVisible={isTimeModelVisible} onBackButtonPress={() => setIsTimeModelVisible(false)}>
+        <View style={styles.modelMain}>
+          <View style={styles.classTimeModelHeader}>
+            <Text style={styles.selectTimeHeading}>Select class time</Text>
+            <TouchableOpacity onPress={onPressCloseTimeModel} style={styles.crossButton}>
+              <Image style={styles.crossIcon} source={Icons.ic_cross} />
+            </TouchableOpacity>
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {DummyTime.map((item, index) => {
+              return (
+                <TouchableOpacity key={index} onPress={() => onSelectTime(item.time)}>
+                  <Text style={styles.timeModelItems}>{item.time}</Text>
+                </TouchableOpacity>
+              )
+            })}
+          </ScrollView>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -280,5 +327,32 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(16),
     lineHeight: verticalScale(21),
     fontWeight: '400',
+  },
+
+  // time selection modal styling is here.....
+  modelMain: {
+    alignSelf: 'center',
+    backgroundColor: Colors.white,
+    width: screenWidth.width80,
+    height: screenHeight.height50,
+    paddingHorizontal: horizontalscale(15),
+    paddingVertical: verticalScale(10),
+  },
+  selectTimeHeading: {
+    fontSize: verticalScale(16),
+    lineHeight: verticalScale(20),
+    fontWeight: '800',
+  },
+  classTimeModelHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: verticalScale(10),
+  },
+  timeModelItems: {
+    fontSize: verticalScale(14),
+    lineHeight: verticalScale(18),
+    fontWeight: '400',
+    paddingVertical: verticalScale(8)
   },
 });

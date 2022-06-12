@@ -7,9 +7,8 @@ import { Tabs } from '../components';
 import { Screen } from '../constants';
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
-import ClassesScreen from '../screens/Classes';
-import HomeScreen from '../screens/Home';
-import { Learn, OptionsSelection, SubjectDetails, TopicDetails } from '../screens/learn';
+import { ClassesScreen, Home, Learn, Search, SubjectDetails, TopicDetails } from '../screens';
+
 import { screenHeight } from '../styles/screenSize';
 import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
 
@@ -17,7 +16,8 @@ const HomeStack = createNativeStackNavigator();
 const HomeNavigator = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="Search" component={Search} />
     </HomeStack.Navigator>
   );
 };
@@ -26,7 +26,7 @@ const ClassesStack = createNativeStackNavigator();
 const ClassesNavigator = () => {
   return (
     <ClassesStack.Navigator screenOptions={{ headerShown: false }}>
-      <ClassesStack.Screen name="Classes" component={ClassesScreen} />
+      <ClassesStack.Screen name="ClassesScreen" component={ClassesScreen} />
     </ClassesStack.Navigator>
   );
 };
@@ -38,7 +38,6 @@ const LearnNavigator = () => {
       <LearnStack.Screen name={Screen.learn} component={Learn} />
       <LearnStack.Screen name={Screen.subjectDetails} component={SubjectDetails} />
       <LearnStack.Screen name={Screen.topicDetails} component={TopicDetails} />
-      <LearnStack.Screen name={Screen.optionsSelection} component={OptionsSelection} />
     </LearnStack.Navigator>
   );
 };
@@ -61,7 +60,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="ClassesScreen"
+        name="Classes"
         component={ClassesNavigator}
         options={{
           tabBarIcon: ({ focused }) => (

@@ -12,12 +12,8 @@ import { DummySubjectsTopics } from '../DummyData';
 const SubjectDetails = ({ route, navigation }) => {
   const { subject } = route.params;
 
-  const onPressSubject = (item) => {
-    if (item.topicDescription !== '') {
-      navigation.navigate(Screen.topicDetails, { subject });
-    } else {
-      navigation.navigate(Screen.optionsSelection, { subject });
-    }
+  const onPressSubject = () => {
+    navigation.navigate(Screen.topicDetails, { subject });
   };
 
   return (
@@ -43,7 +39,7 @@ const SubjectDetails = ({ route, navigation }) => {
             return (
               <SubjectTopicCard
                 key={index}
-                onPress={() => onPressSubject(item)}
+                onPress={onPressSubject}
                 topicTitle={item.topicTitle}
                 topicDescription={item.topicDescription}
                 likes={item.likes}

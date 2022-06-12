@@ -18,6 +18,7 @@ const TopicDetails = ({ route, navigation }) => {
 
   const [optionSection, setOptionSection] = useState(false);
   const [animationType, setAnimationType] = useState('slideInRight');
+  const [selectedIndex, setSelectedIndex] = useState();
 
   const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
@@ -40,6 +41,10 @@ const TopicDetails = ({ route, navigation }) => {
       }, 500);
     }
   };
+
+  const onPressoptions = (index) => {
+    setSelectedIndex(index)
+  }
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -96,12 +101,19 @@ const TopicDetails = ({ route, navigation }) => {
 
           {DummyOptions.map((item, index) => {
             return (
-              <View key={index} style={styles.optionsMain}>
+              <TouchableOpacity
+                key={index}
+                onPress={() => onPressoptions(index)}
+                style={[styles.optionsMain, {
+                  backgroundColor: selectedIndex === index ? Colors.theme : Colors.softWhite
+                }]}>
                 <View style={styles.optionsTag}>
-                  <Text style={styles.optionSerials}>{item.id}</Text>
+                  <Text style={styles.optionSerials}>{(index + 1 + 9).toString(36).toUpperCase()}</Text>
                 </View>
-                <Text style={styles.options}>{item.option}</Text>
-              </View>
+                <Text style={[styles.options, {
+                  color: selectedIndex === index ? Colors.white : Colors.black
+                }]}>{item.option}</Text>
+              </TouchableOpacity>
             );
           })}
         </Animatable.View>
@@ -250,7 +262,6 @@ const styles = StyleSheet.create({
   optionsMain: {
     height: verticalScale(65),
     width: horizontalscale(329),
-    backgroundColor: Colors.softWhite,
     borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',

@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import { Button, Header, ListTabs, Post } from '../components';
-import MyStatusBar from '../components/MyStatusBar';
-import { Colors } from '../constants/assets/Colors';
-import { Icons } from '../constants/assets/Icons';
-import { Keys } from '../constants/keys/Keys';
-import appStyle from '../styles/appStyle';
-import { screenWidth } from '../styles/screenSize';
-import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
-import { DummyPosts } from './DummyData';
+import { Button, Header, ListTabs, Post } from '../../components';
+import MyStatusBar from '../../components/MyStatusBar';
+import { Colors } from '../../constants/assets/Colors';
+import { Icons } from '../../constants/assets/Icons';
+import { Keys } from '../../constants/keys/Keys';
+import appStyle from '../../styles/appStyle';
+import { screenWidth } from '../../styles/screenSize';
+import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { DummyPosts } from '../DummyData';
 
 const ClassesScreen = ({ navigation }) => {
   const [likedPosts, setLikedPosts] = useState([]);

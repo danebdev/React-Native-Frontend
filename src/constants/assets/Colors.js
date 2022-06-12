@@ -6,6 +6,7 @@ export const Colors = {
   midGray: '#7C8894',
   lightGray: '#F6F6F9',
   lightMidGray: 'rgba(0, 0, 0, 0.1)',
+  lightMidGrayNew: '#999999',
   white: '#FFFF',
   black: '#000',
   activeTabs: '#495ECA',
