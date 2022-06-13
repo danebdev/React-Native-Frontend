@@ -5,7 +5,7 @@ import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { screenWidth } from '../../styles/screenSize';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 
 const Post = (props) => {
   const {
@@ -35,7 +35,7 @@ const Post = (props) => {
       <View style={[appStyle.rowBtw]}>
         <View style={[appStyle.row]}>
           <Image style={styles.userImage} source={userImage} />
-          <View style={{ marginLeft: horizontalscale(10) }}>
+          <View style={{ marginLeft: horizontalScale(10) }}>
             <Text style={styles.userName}>{userName}</Text>
             <Text style={styles.postTime}>{time}</Text>
           </View>
@@ -90,11 +90,11 @@ export default Post;
 
 const styles = StyleSheet.create({
   postMain: {
-    marginHorizontal: horizontalscale(10),
+    marginHorizontal: horizontalScale(10),
     backgroundColor: Colors.white,
     borderRadius: 8,
     marginVertical: verticalScale(10),
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(20),
   },
   userImage: {
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   heart: {
     position: 'absolute',
-    right: horizontalscale(20),
+    right: horizontalScale(20),
     top: verticalScale(15),
     zIndex: 5,
   },
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(14),
     fontWeight: 'bold',
     color: Colors.black,
-    width: horizontalscale(265),
+    width: horizontalScale(265),
   },
   arrowIcon: {
     width: verticalScale(15),
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   postDescriptionMain: {
-    width: horizontalscale(265),
+    width: horizontalScale(265),
     marginVertical: 5,
   },
   postDescription: {
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   thumbAndChat: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: horizontalscale(15),
+    marginRight: horizontalScale(15),
   },
   thumbAndChatIcon: {
     width: verticalScale(14),
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   projectNumber: {
     backgroundColor: Colors.softGreen,
-    paddingHorizontal: horizontalscale(10),
+    paddingHorizontal: horizontalScale(10),
     paddingVertical: verticalScale(4),
     borderRadius: 20,
     alignItems: 'center',
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   downArrow: {
     position: 'absolute',
     bottom: verticalScale(20),
-    right: horizontalscale(20),
+    right: horizontalScale(20),
     zIndex: 5,
   },
 });

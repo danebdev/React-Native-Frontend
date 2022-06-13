@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 import { Button, Header, ListTabs, Post } from '../../components';
@@ -9,11 +9,12 @@ import { Icons } from '../../constants/assets/Icons';
 import { Keys } from '../../constants/keys/Keys';
 import appStyle from '../../styles/appStyle';
 import { screenWidth } from '../../styles/screenSize';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
-import { DummyPosts } from '../DummyData';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
+import { DummyPosts, DummyPosts2, DummyPosts3, DummyPosts4 } from '../DummyData';
 
 const ClassesScreen = ({ navigation }) => {
   const [likedPosts, setLikedPosts] = useState([]);
+  const [posts, setPosts] = useState(DummyPosts);
 
   const [tab1, setTab1] = useState(true);
   const [tab2, setTab2] = useState(false);
@@ -62,6 +63,25 @@ const ClassesScreen = ({ navigation }) => {
     }
   };
 
+  const onPressNewPost = () => {
+    navigation.navigate('NewPost');
+  };
+
+  const onSelectItemHandler = (item) => {
+    if (item.value === 'data struction') {
+      setPosts(DummyPosts)
+    }
+    if (item.value === 'linear algebra') {
+      setPosts(DummyPosts2)
+    }
+    if (item.value === 'us history') {
+      setPosts(DummyPosts3)
+    }
+    if (item.value === 'negotiation') {
+      setPosts(DummyPosts4)
+    }
+  }
+
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
       <MyStatusBar backgroundColor={Colors.backgroundGray} barStyle="dark-content" />
@@ -90,6 +110,7 @@ const ClassesScreen = ({ navigation }) => {
               setOpen={setOpen}
               setValue={setValue}
               setItems={setItems}
+              onSelectItem={(item) => onSelectItemHandler(item)}
             />
           </View>
         </View>
@@ -105,7 +126,7 @@ const ClassesScreen = ({ navigation }) => {
       {tab1 && (
         <View style={{ height: verticalScale(450), zIndex: -2 }}>
           <ScrollView>
-            {DummyPosts.map((item, index) => {
+            {posts.map((item, index) => {
               const IndexFound = selectedIndex.find((i) => i === index);
               const found = likedPosts.find((i, index) => i.id === item.id);
               return (
@@ -159,6 +180,7 @@ const ClassesScreen = ({ navigation }) => {
       )}
       <View style={[appStyle.aiCenter, appStyle.pt10]}>
         <Button
+          onPress={onPressNewPost}
           label="new post"
           labelStyle={styles.buttonLabelStyle}
           leftIcon={Icons.ic_edit}
@@ -181,14 +203,14 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(8),
   },
   dropdown: {
-    width: horizontalscale(172),
+    width: horizontalScale(172),
     height: verticalScale(36),
     borderWidth: 1,
     borderColor: Colors.lightMidGray,
     borderRadius: 8,
     backgroundColor: Colors.white,
     ...appStyle.rowBtw,
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
     shadowColor: Colors.black,
     shadowOffset: {
       width: 0,
@@ -209,7 +231,7 @@ const styles = StyleSheet.create({
     tintColor: Colors.lightPink,
   },
   buttonStyle: {
-    width: horizontalscale(155),
+    width: horizontalScale(155),
     height: verticalScale(36),
   },
   buttonLabelStyle: {

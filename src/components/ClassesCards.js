@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
 import appStyle from '../styles/appStyle';
-import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, moderateScale, verticalScale } from '../utils/ScaleUtils';
 
 const ClassesCards = (props) => {
   const { course, days, timing } = props;
@@ -26,7 +26,7 @@ export default ClassesCards;
 const styles = StyleSheet.create({
   //box style
   boxMain: {
-    width: horizontalscale(164),
+    width: horizontalScale(164),
     height: verticalScale(80),
     backgroundColor: Colors.white,
     borderRadius: 18,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1.5,
     borderColor: Colors.themeDull,
     height: verticalScale(15),
-    marginHorizontal: horizontalscale(5),
+    marginHorizontal: horizontalScale(5),
   },
   dayTimeSection: {
     ...appStyle.rowCenter,

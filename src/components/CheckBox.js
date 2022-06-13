@@ -3,8 +3,7 @@ import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
-import { screenHeight, screenWidth } from '../styles/screenSize';
-import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../utils/ScaleUtils';
 
 const CheckBox = (props) => {
   const { onPress, isChecked } = props;
@@ -28,7 +27,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.theme,
   },
   tick: {
-    width: horizontalscale(15),
+    width: horizontalScale(15),
     height: verticalScale(15),
     resizeMode: 'contain',
   },

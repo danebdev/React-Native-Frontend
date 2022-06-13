@@ -4,11 +4,12 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 import { createFilter } from 'react-native-search-filter';
+
 import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { horizontalscale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
+import { horizontalScale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
 import { DummyClasses } from '../DummyData';
 
 const KEYS_TO_FILTERS = ['courseTitle'];
@@ -16,7 +17,7 @@ const KEYS_TO_FILTERS = ['courseTitle'];
 const Search = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const [fontsLoaded, error] = useFonts({
+  const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
   });
 
@@ -28,11 +29,11 @@ const Search = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const onPresssubject = () => {
+  const onPressSubject = () => {
     navigation.navigate('Classes');
   };
 
-  const filteredSubjects = DummyClasses.filter(createFilter(searchQuery, KEYS_TO_FILTERS))
+  const filteredSubjects = DummyClasses.filter(createFilter(searchQuery, KEYS_TO_FILTERS));
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
       <MyStatusBar backgroundColor={Colors.backgroundGray} barStyle="dark-content" />
@@ -43,7 +44,7 @@ const Search = ({ navigation }) => {
             <Image style={styles.crossIcon} source={Icons.ic_cross} />
           </TouchableOpacity>
         </View>
-        <View style={styles.searcBarMain}>
+        <View style={styles.searchBarMain}>
           <Searchbar
             onChangeText={(term) => setSearchQuery(term)}
             placeholder="search class by name"
@@ -51,31 +52,29 @@ const Search = ({ navigation }) => {
             value={searchQuery}
             clearIcon={Icons.ic_cross}
             icon={Icons.ic_search}
-            style={styles.searcBar}
+            style={styles.searchBar}
             iconColor={Colors.lightMidGrayNew}
           />
         </View>
         <View>
-          {filteredSubjects.length > 0 ?
+          {filteredSubjects.length > 0 ? (
             filteredSubjects.map((item, index) => {
               return (
-                <TouchableOpacity onPress={onPresssubject} style={styles.subjectMain}>
-                  <Text style={styles.subjectTitle}>
-                    {item.courseTitle}
-                  </Text>
+                <TouchableOpacity onPress={onPressSubject} style={styles.subjectMain}>
+                  <Text style={styles.subjectTitle}>{item.courseTitle}</Text>
                   <View style={styles.dayTimeSection}>
                     <Text style={styles.days}>{item.days}</Text>
                     <View style={styles.centerLine} />
                     <Text style={styles.days}>{item.timing}</Text>
                   </View>
                 </TouchableOpacity>
-              )
+              );
             })
-            :
+          ) : (
             <View style={[appStyle.aiCenter, appStyle.mt50]}>
               <Text style={styles.noSearchFound}>no search found</Text>
             </View>
-          }
+          )}
         </View>
       </View>
     </View>
@@ -87,14 +86,13 @@ export default Search;
 const styles = StyleSheet.create({
   container: {
     paddingTop: verticalScale(10),
-    paddingHorizontal: horizontalscale(15)
+    paddingHorizontal: horizontalScale(15),
   },
   searchMain: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: verticalScale(10)
-
+    paddingTop: verticalScale(10),
   },
   searchText: {
     fontSize: verticalScale(20),
@@ -103,29 +101,29 @@ const styles = StyleSheet.create({
   },
   crossButton: {
     position: 'absolute',
-    right: horizontalscale(10),
+    right: horizontalScale(10),
   },
   crossIcon: {
     width: verticalScale(24),
     height: verticalScale(24),
     resizeMode: 'contain',
   },
-  searcBarMain: {
-    paddingVertical: verticalScale(20)
+  searchBarMain: {
+    paddingVertical: verticalScale(20),
   },
-  searcBar: {
+  searchBar: {
     borderColor: Colors.backgroundGray,
   },
   subjectMain: {
-    width: horizontalscale(336),
+    width: horizontalScale(336),
     height: verticalScale(42),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.white,
-    paddingHorizontal: horizontalscale(10),
+    paddingHorizontal: horizontalScale(10),
     borderRadius: 18,
-    marginBottom: verticalScale(10)
+    marginBottom: verticalScale(10),
   },
   subjectTitle: {
     fontSize: moderateScale(16),
@@ -140,7 +138,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 1.5,
     borderColor: Colors.themeDull,
     height: verticalScale(15),
-    marginHorizontal: horizontalscale(5),
+    marginHorizontal: horizontalScale(5),
   },
   dayTimeSection: {
     ...appStyle.rowCenter,
@@ -153,5 +151,5 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(16),
     color: Colors.midGray,
     fontWeight: '600',
-  }
+  },
 });

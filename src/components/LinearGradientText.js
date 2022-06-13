@@ -6,7 +6,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
-import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../utils/ScaleUtils';
 
 const LinearGradientText = (props) => {
   const { name } = props;
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   backSideView: {
     opacity: 0,
     height: verticalScale(60),
-    width: horizontalscale(300),
-    marginVertical: verticalScale(10)
+    width: horizontalScale(300),
+    marginVertical: verticalScale(10),
   },
 });

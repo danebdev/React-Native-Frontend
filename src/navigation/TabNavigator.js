@@ -7,17 +7,15 @@ import { Tabs } from '../components';
 import { Screen } from '../constants';
 import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
-import { ClassesScreen, Home, Learn, Search, SubjectDetails, TopicDetails } from '../screens';
-
+import { ClassesScreen, Home, Learn, SubjectDetails, TopicDetails } from '../screens';
 import { screenHeight } from '../styles/screenSize';
-import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../utils/ScaleUtils';
 
 const HomeStack = createNativeStackNavigator();
 const HomeNavigator = () => {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="Home" component={Home} />
-      <HomeStack.Screen name="Search" component={Search} />
     </HomeStack.Navigator>
   );
 };
@@ -85,11 +83,11 @@ const styles = StyleSheet.create({
   bottomTab: {
     position: 'absolute',
     bottom: verticalScale(20),
-    left: horizontalscale(20),
-    right: horizontalscale(20),
+    left: horizontalScale(20),
+    right: horizontalScale(20),
     borderRadius: 50,
     height: verticalScale(65),
-    paddingHorizontal: horizontalscale(5),
+    paddingHorizontal: horizontalScale(5),
     shadowColor: Colors.shadow,
     shadowOffset: {
       width: 0,

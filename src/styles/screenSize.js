@@ -29,6 +29,7 @@ export const screenHeight = {
   height68: Math.round((68 / 100) * Dimensions.get('window').height),
   height70: Math.round((70 / 100) * Dimensions.get('window').height),
   height72: Math.round((72 / 100) * Dimensions.get('window').height),
+  height75: Math.round((75 / 100) * Dimensions.get('window').height),
   height80: Math.round((80 / 100) * Dimensions.get('window').height),
   height85: Math.round((85 / 100) * Dimensions.get('window').height),
   height90: Math.round((90 / 100) * Dimensions.get('window').height),

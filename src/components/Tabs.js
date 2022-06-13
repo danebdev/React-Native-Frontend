@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 
 import { Colors } from '../constants/assets/Colors';
-import { screenHeight, screenWidth } from '../styles/screenSize';
-import { horizontalscale, moderateScale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../utils/ScaleUtils';
 
 const Tabs = (props) => {
   const { focused, icon, label } = props;
@@ -38,12 +37,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     alignContent: 'center',
-    width: horizontalscale(90),
+    width: horizontalScale(90),
     height: verticalScale(45),
     borderRadius: 30,
   },
   tabIcon: {
-    width: horizontalscale(20),
+    width: horizontalScale(20),
     height: verticalScale(20),
     resizeMode: 'contain',
   },

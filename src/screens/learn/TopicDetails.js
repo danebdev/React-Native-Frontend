@@ -1,24 +1,46 @@
 import { OpenSans_300Light, useFonts } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import * as Animatable from 'react-native-animatable';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native';
+// import * as Animatable from 'react-native-animatable';
 
 import { Header } from '../../components';
 import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { screenHeight } from '../../styles/screenSize';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { screenHeight, screenWidth } from '../../styles/screenSize';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 import { DummyOptions } from '../DummyData';
 
 const TopicDetails = ({ route, navigation }) => {
   const { subject } = route.params;
 
   const [optionSection, setOptionSection] = useState(false);
-  const [animationType, setAnimationType] = useState('slideInRight');
+  const [isShowSliderButton, setIsShowSliderButton] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState();
+  const fadeAnim = useRef(new Animated.Value(- horizontalScale(400))).current;
+
+
+  const sliderAnimationOpen = () => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: horizontalScale(10),
+        duration: 1000,
+      }
+    ).start();
+  }
+
+  const sliderAnimationCLose = () => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: -horizontalScale(400),
+        duration: 1000,
+      }
+    ).start();
+  }
 
   const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
@@ -30,21 +52,25 @@ const TopicDetails = ({ route, navigation }) => {
 
   const onPressSliderButton = (type) => {
     if (type === 'right') {
-      setAnimationType('slideInRight');
+      sliderAnimationOpen()
+      setIsShowSliderButton(false)
       setTimeout(() => {
-        setOptionSection(!optionSection);
-      }, 500);
+        setOptionSection(true)
+        setIsShowSliderButton(true)
+      }, 980);
     } else {
-      setAnimationType('slideOutRight');
+      sliderAnimationCLose()
+      setIsShowSliderButton(false)
       setTimeout(() => {
-        setOptionSection(!optionSection);
-      }, 500);
+        setOptionSection(false)
+        setIsShowSliderButton(true)
+      }, 980);
     }
   };
 
-  const onPressoptions = (index) => {
-    setSelectedIndex(index)
-  }
+  const onPressOptions = (index) => {
+    setSelectedIndex(index);
+  };
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -63,7 +89,7 @@ const TopicDetails = ({ route, navigation }) => {
           </View>
         </View>
       </View>
-      {!optionSection ? (
+      <View style={appStyle.flex1}>
         <View style={styles.boxMain}>
           <View>
             <Text style={styles.title}>Introduction</Text>
@@ -93,9 +119,8 @@ const TopicDetails = ({ route, navigation }) => {
             </View>
           </View>
         </View>
-      ) : (
-        <Animatable.View animation={animationType} style={styles.boxMainOptions}>
-          <View style={styles.questionMian}>
+        <Animated.View style={[styles.boxMainOptions, { right: fadeAnim }]}>
+          <View style={styles.questionMain}>
             <Text style={styles.question}>What is the answer?</Text>
           </View>
 
@@ -103,34 +128,48 @@ const TopicDetails = ({ route, navigation }) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => onPressoptions(index)}
-                style={[styles.optionsMain, {
-                  backgroundColor: selectedIndex === index ? Colors.theme : Colors.softWhite
-                }]}>
+                onPress={() => onPressOptions(index)}
+                style={[
+                  styles.optionsMain,
+                  {
+                    backgroundColor: selectedIndex === index ? Colors.theme : Colors.softWhite,
+                  },
+                ]}>
                 <View style={styles.optionsTag}>
-                  <Text style={styles.optionSerials}>{(index + 1 + 9).toString(36).toUpperCase()}</Text>
+                  <Text style={styles.optionSerials}>
+                    {(index + 1 + 9).toString(36).toUpperCase()}
+                  </Text>
                 </View>
-                <Text style={[styles.options, {
-                  color: selectedIndex === index ? Colors.white : Colors.black
-                }]}>{item.option}</Text>
+                <Text
+                  style={[
+                    styles.options,
+                    {
+                      color: selectedIndex === index ? Colors.white : Colors.black,
+                    },
+                  ]}>
+                  {item.option}
+                </Text>
               </TouchableOpacity>
             );
           })}
-        </Animatable.View>
-      )}
-      {!optionSection ? (
-        <TouchableOpacity
-          onPress={() => onPressSliderButton('right')}
-          style={styles.rightSheetButton}>
-          <Image style={styles.leftArrowIcon} source={Icons.ic_left_arrow} />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          onPress={() => onPressSliderButton('left')}
-          style={styles.leftSheetButton}>
-          <Image style={styles.leftArrowIcon} source={Icons.ic_right_arrow} />
-        </TouchableOpacity>
-      )}
+        </Animated.View>
+      </View>
+      {isShowSliderButton &&
+        <>
+          {!optionSection ? (
+            <TouchableOpacity
+              onPress={() => onPressSliderButton('right')}
+              style={styles.rightSheetButton}>
+              <Image style={styles.leftArrowIcon} source={Icons.ic_left_arrow} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => onPressSliderButton('left')}
+              style={styles.leftSheetButton}>
+              <Image style={styles.leftArrowIcon} source={Icons.ic_right_arrow} />
+            </TouchableOpacity>
+          )}
+        </>}
     </View>
   );
 };
@@ -150,7 +189,7 @@ const styles = StyleSheet.create({
     ...appStyle.row,
     ...appStyle.jcSpaceBetween,
     ...appStyle.aiFlexEnd,
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
   },
   subjectTitle: {
     fontSize: verticalScale(20),
@@ -168,7 +207,7 @@ const styles = StyleSheet.create({
   },
   boxMain: {
     height: verticalScale(538),
-    width: horizontalscale(352),
+    width: horizontalScale(352),
     backgroundColor: Colors.white,
     alignSelf: 'center',
     marginVertical: verticalScale(15),
@@ -176,32 +215,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: verticalScale(15),
     paddingTop: verticalScale(40),
+    position: 'absolute',
+    zIndex: -2
   },
   title: {
     fontSize: verticalScale(20),
     lineHeight: verticalScale(20),
     fontWeight: '800',
     color: Colors.black,
-    paddingHorizontal: horizontalscale(10),
+    paddingHorizontal: horizontalScale(10),
   },
   description: {
     fontSize: verticalScale(14),
     lineHeight: verticalScale(20),
     color: Colors.black,
-    paddingHorizontal: horizontalscale(10),
+    paddingHorizontal: horizontalScale(10),
     paddingTop: verticalScale(10),
   },
   thumbAndChat: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: horizontalscale(20),
+    marginRight: horizontalScale(20),
   },
   thumbAndChatIcon: {
     width: verticalScale(18),
     height: verticalScale(18),
     resizeMode: 'contain',
     tintColor: Colors.midGray,
-    marginRight: horizontalscale(5),
+    marginRight: horizontalScale(5),
   },
   thumbAndChatCount: {
     fontSize: verticalScale(14),
@@ -218,6 +259,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: screenHeight.height50,
     right: 0,
+    zIndex: 5,
   },
   leftSheetButton: {
     backgroundColor: Colors.theme,
@@ -240,13 +282,15 @@ const styles = StyleSheet.create({
   // optins section styling....
   boxMainOptions: {
     height: verticalScale(538),
-    width: horizontalscale(352),
+    width: horizontalScale(352),
     backgroundColor: Colors.white,
     alignSelf: 'center',
     marginVertical: verticalScale(15),
     borderRadius: 11,
+    position: 'absolute',
+    // right: - horizontalScale(400)
   },
-  questionMian: {
+  questionMain: {
     height: verticalScale(83),
     backgroundColor: Colors.theme,
     borderRadius: 10,
@@ -261,7 +305,7 @@ const styles = StyleSheet.create({
   },
   optionsMain: {
     height: verticalScale(65),
-    width: horizontalscale(329),
+    width: horizontalScale(329),
     borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
@@ -276,7 +320,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-    marginRight: horizontalscale(12),
+    marginRight: horizontalScale(12),
   },
   optionSerials: {
     fontSize: verticalScale(10),

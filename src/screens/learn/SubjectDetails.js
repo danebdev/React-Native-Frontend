@@ -6,7 +6,7 @@ import MyStatusBar from '../../components/MyStatusBar';
 import { Screen } from '../../constants';
 import { Colors } from '../../constants/assets/Colors';
 import appStyle from '../../styles/appStyle';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 import { DummySubjectsTopics } from '../DummyData';
 
 const SubjectDetails = ({ route, navigation }) => {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     ...appStyle.row,
     ...appStyle.jcSpaceBetween,
     ...appStyle.aiFlexEnd,
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
   },
   subjectTitle: {
     fontSize: verticalScale(20),

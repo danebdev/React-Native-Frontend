@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 
 const SubjectTopicCard = (props) => {
   const { topicTitle, topicDescription, likes, onPress } = props;
@@ -33,11 +33,11 @@ export default SubjectTopicCard;
 const styles = StyleSheet.create({
   // cards style here ====
   cardMain: {
-    width: horizontalscale(360),
+    width: horizontalScale(360),
     height: verticalScale(138),
     backgroundColor: Colors.white,
     borderRadius: 10,
-    paddingHorizontal: horizontalscale(15),
+    paddingHorizontal: horizontalScale(15),
     paddingVertical: verticalScale(15),
     marginVertical: verticalScale(10),
   },
@@ -51,13 +51,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: Colors.black,
     paddingVertical: verticalScale(5),
-    width: horizontalscale(265),
+    width: horizontalScale(265),
     height: verticalScale(72),
   },
   thumb: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: horizontalscale(15),
+    marginRight: horizontalScale(15),
   },
   thumbIcon: {
     width: verticalScale(18),

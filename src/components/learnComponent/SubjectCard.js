@@ -5,7 +5,7 @@ import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { screenWidth } from '../../styles/screenSize';
-import { horizontalscale, verticalScale } from '../../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 import Button from '../Button';
 
 const SubjectCard = (props) => {
@@ -42,12 +42,12 @@ export default SubjectCard;
 
 const styles = StyleSheet.create({
   cardMain: {
-    width: horizontalscale(362),
+    width: horizontalScale(362),
     height: verticalScale(128),
     backgroundColor: Colors.white,
     borderRadius: 10,
-    paddingLeft: horizontalscale(30),
-    paddingRight: horizontalscale(10),
+    paddingLeft: horizontalScale(30),
+    paddingRight: horizontalScale(10),
     paddingVertical: verticalScale(15),
     justifyContent: 'space-between',
     marginVertical: verticalScale(10),
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(15),
   },
   buttonStyle: {
-    width: horizontalscale(83),
+    width: horizontalScale(83),
     height: verticalScale(25),
     borderRadius: 10,
   },

@@ -3,31 +3,37 @@ import AppLoading from 'expo-app-loading';
 import React, { useState, createRef } from 'react';
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { ProgressBar } from 'react-native-paper';
-import Modal from "react-native-modal";
 
-import { Header, Button, ClassesCards, LinearGradientText, Input, CheckBox } from '../../components';
+import {
+  Header,
+  Button,
+  ClassesCards,
+  LinearGradientText,
+  Input,
+  CheckBox,
+} from '../../components';
 import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import { Images } from '../../constants/assets/Images';
 import appStyle from '../../styles/appStyle';
-import { getClout } from '../../utils/Helper';
-import { horizontalscale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
-import { DummyClasses, DummyDays, DummyTime } from '../DummyData';
 import { screenHeight, screenWidth } from '../../styles/screenSize';
+import { formatAMPM, getClout } from '../../utils/Helper';
+import { horizontalScale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
+import { DummyClasses, DummyDays } from '../DummyData';
 
 const addClassSheetRef = createRef();
 
 const Home = ({ navigation }) => {
   const [clout, setClout] = useState(600);
-  const [isTimeModelVisible, setIsTimeModelVisible] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
-  const [className, setClassName] = useState([]);
   const [days, setDays] = useState([]);
-  const [classTime, setClassTime] = useState('1:00 PM');
+  const [classTime, setClassTime] = useState('12:00 PM');
 
-  const [fontsLoaded, error] = useFonts({
+  const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
   });
 
@@ -40,13 +46,9 @@ const Home = ({ navigation }) => {
   };
 
   const onPressSearch = () => {
-    navigation.navigate('Search')
+    navigation.navigate('Search');
   };
 
-  const onSelectTime = (time) => {
-    setClassTime(time)
-    setIsTimeModelVisible(false)
-  };
 
   const onPressCheckBox = (day) => {
     if (days.length === 0) {
@@ -66,9 +68,20 @@ const Home = ({ navigation }) => {
     addClassSheetRef.current?.setModalVisible(false);
   };
 
-  const onPressCloseTimeModel = () => {
-    setIsTimeModelVisible(false);
+
+  const showTimePicker = () => {
+    setTimePickerVisibility(true);
   };
+
+  const hideTimePicker = () => {
+    setTimePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    setClassTime(formatAMPM(date))
+    hideTimePicker();
+  };
+
 
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -79,7 +92,7 @@ const Home = ({ navigation }) => {
           <View style={styles.profileMain}>
             <Image style={styles.profile} source={Images.dummyUser} />
           </View>
-          <LinearGradientText name="robert fox" />
+          <LinearGradientText name={"robert fox"} />
           <Text style={[styles.sigma, { fontFamily: 'light' }]}>{getClout(clout)}</Text>
           <View style={styles.progressMain}>
             <ProgressBar
@@ -122,7 +135,7 @@ const Home = ({ navigation }) => {
         </View>
       </View>
       <ActionSheet ref={addClassSheetRef} gestureEnabled>
-        <View style={styles.addClassSheeMain}>
+        <View style={styles.addClassSheetMain}>
           <ScrollView>
             <View style={styles.addClassMain}>
               <Text style={styles.addClassSheetText}>Add Class</Text>
@@ -150,7 +163,7 @@ const Home = ({ navigation }) => {
             </View>
             <View style={{ marginTop: verticalScale(5) }}>
               <Text style={styles.label}>Select Time</Text>
-              <TouchableOpacity onPress={() => setIsTimeModelVisible(true)} style={styles.timeInput}>
+              <TouchableOpacity onPress={showTimePicker} style={styles.timeInput}>
                 <Text style={styles.timeText}>{classTime}</Text>
               </TouchableOpacity>
             </View>
@@ -176,26 +189,13 @@ const Home = ({ navigation }) => {
             </View>
           </ScrollView>
         </View>
+        <DateTimePickerModal
+          isVisible={isTimePickerVisible}
+          mode="time"
+          onConfirm={handleConfirm}
+          onCancel={hideTimePicker}
+        />
       </ActionSheet>
-      <Modal isVisible={isTimeModelVisible} onBackButtonPress={() => setIsTimeModelVisible(false)}>
-        <View style={styles.modelMain}>
-          <View style={styles.classTimeModelHeader}>
-            <Text style={styles.selectTimeHeading}>Select class time</Text>
-            <TouchableOpacity onPress={onPressCloseTimeModel} style={styles.crossButton}>
-              <Image style={styles.crossIcon} source={Icons.ic_cross} />
-            </TouchableOpacity>
-          </View>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {DummyTime.map((item, index) => {
-              return (
-                <TouchableOpacity key={index} onPress={() => onSelectTime(item.time)}>
-                  <Text style={styles.timeModelItems}>{item.time}</Text>
-                </TouchableOpacity>
-              )
-            })}
-          </ScrollView>
-        </View>
-      </Modal>
     </View>
   );
 };
@@ -226,20 +226,23 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   sigma: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(18),
     color: Colors.lightPurple,
   },
   progressMain: {
-    width: horizontalscale(329),
-    paddingVertical: verticalScale(15),
+    width: horizontalScale(329),
+    paddingTop: verticalScale(12),
+    paddingBottom: verticalScale(5),
   },
   progressBar: {
-    height: verticalScale(22),
+    height: verticalScale(22.88),
+    width: horizontalScale(271.07),
     backgroundColor: Colors.white,
-    borderRadius: 50,
+    borderRadius: 100,
+    alignSelf: 'center'
   },
   clout: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(18),
     color: Colors.lightPurple,
   },
   yourClasses: {
@@ -247,24 +250,25 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   classesMain: {
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
     ...appStyle.rowWrap,
     justifyContent: 'space-between',
     marginTop: verticalScale(10),
   },
   addAClassButton: {
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
     ...appStyle.row,
     ...appStyle.aiCenter,
+    width: horizontalScale(150),
   },
   plusIcon: {
     width: verticalScale(16),
     height: verticalScale(16),
     resizeMode: 'contain',
-    marginRight: horizontalscale(5),
+    marginRight: horizontalScale(5),
   },
   addAClass: {
-    fontSize: moderateScale(14),
+    fontSize: verticalScale(14),
     fontWeight: '600',
     color: Colors.black,
   },
@@ -274,15 +278,15 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
   },
   buttonLabelStyle: {
-    paddingLeft: horizontalscale(20),
+    paddingLeft: horizontalScale(20),
   },
 
   // action sheet styles here
-  addClassSheeMain: {
+  addClassSheetMain: {
     backgroundColor: Colors.white,
     paddingTop: verticalScale(10),
     paddingBottom: verticalScale(30),
-    paddingHorizontal: horizontalscale(20),
+    paddingHorizontal: horizontalScale(20),
   },
   addClassMain: {
     flexDirection: 'row',
@@ -296,7 +300,7 @@ const styles = StyleSheet.create({
   },
   crossButton: {
     position: 'absolute',
-    right: horizontalscale(10),
+    right: horizontalScale(10),
   },
   crossIcon: {
     width: verticalScale(24),
@@ -310,7 +314,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
   },
   days: {
-    marginLeft: horizontalscale(10),
+    marginLeft: horizontalScale(10),
     fontSize: verticalScale(16),
     lineHeight: verticalScale(22),
     fontWeight: '400',
@@ -321,7 +325,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.backgroundGray,
     height: verticalScale(40),
     justifyContent: 'center',
-    paddingHorizontal: horizontalscale(15),
+    paddingHorizontal: horizontalScale(15),
   },
   timeText: {
     fontSize: verticalScale(16),
@@ -335,7 +339,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     width: screenWidth.width80,
     height: screenHeight.height50,
-    paddingHorizontal: horizontalscale(15),
+    paddingHorizontal: horizontalScale(15),
     paddingVertical: verticalScale(10),
   },
   selectTimeHeading: {
@@ -353,6 +357,6 @@ const styles = StyleSheet.create({
     fontSize: verticalScale(14),
     lineHeight: verticalScale(18),
     fontWeight: '400',
-    paddingVertical: verticalScale(8)
+    paddingVertical: verticalScale(8),
   },
 });

@@ -5,7 +5,7 @@ import { Colors } from '../constants/assets/Colors';
 import { Icons } from '../constants/assets/Icons';
 import { Images } from '../constants/assets/Images';
 import appStyle from '../styles/appStyle';
-import { horizontalscale, verticalScale } from '../utils/ScaleUtils';
+import { horizontalScale, verticalScale } from '../utils/ScaleUtils';
 
 const Header = (props) => {
   const { isChange } = props;
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'android' ? verticalScale(10) : 5,
     ...appStyle.rowBtw,
-    paddingHorizontal: horizontalscale(15),
+    paddingHorizontal: horizontalScale(15),
     backgroundColor: 'rgba(0, 0, 0, 0)',
   },
   menu: {
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   logo: {
-    width: horizontalscale(100),
+    width: horizontalScale(100),
     height: verticalScale(26),
     resizeMode: 'contain',
-    marginLeft: horizontalscale(15),
+    marginLeft: horizontalScale(15),
     top: verticalScale(-2),
   },
   bell: {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   profileButton: {
-    marginLeft: horizontalscale(15),
+    marginLeft: horizontalScale(15),
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
