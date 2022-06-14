@@ -19,28 +19,21 @@ const TopicDetails = ({ route, navigation }) => {
   const [optionSection, setOptionSection] = useState(false);
   const [isShowSliderButton, setIsShowSliderButton] = useState(true);
   const [selectedIndex, setSelectedIndex] = useState();
-  const fadeAnim = useRef(new Animated.Value(- horizontalScale(400))).current;
-
+  const fadeAnim = useRef(new Animated.Value(-horizontalScale(400))).current;
 
   const sliderAnimationOpen = () => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: horizontalScale(10),
-        duration: 1000,
-      }
-    ).start();
-  }
+    Animated.timing(fadeAnim, {
+      toValue: horizontalScale(10),
+      duration: 1000,
+    }).start();
+  };
 
   const sliderAnimationCLose = () => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: -horizontalScale(400),
-        duration: 1000,
-      }
-    ).start();
-  }
+    Animated.timing(fadeAnim, {
+      toValue: -horizontalScale(400),
+      duration: 1000,
+    }).start();
+  };
 
   const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
@@ -52,18 +45,18 @@ const TopicDetails = ({ route, navigation }) => {
 
   const onPressSliderButton = (type) => {
     if (type === 'right') {
-      sliderAnimationOpen()
-      setIsShowSliderButton(false)
+      sliderAnimationOpen();
+      setIsShowSliderButton(false);
       setTimeout(() => {
-        setOptionSection(true)
-        setIsShowSliderButton(true)
+        setOptionSection(true);
+        setIsShowSliderButton(true);
       }, 980);
     } else {
-      sliderAnimationCLose()
-      setIsShowSliderButton(false)
+      sliderAnimationCLose();
+      setIsShowSliderButton(false);
       setTimeout(() => {
-        setOptionSection(false)
-        setIsShowSliderButton(true)
+        setOptionSection(false);
+        setIsShowSliderButton(true);
       }, 980);
     }
   };
@@ -80,8 +73,8 @@ const TopicDetails = ({ route, navigation }) => {
         <View style={styles.headerBottomSection}>
           <Text style={styles.subjectTitle}>{subject && subject.subjectTitle}</Text>
           <View>
+            <Text style={styles.headerRightText}>Difficulty: </Text>
             <Text style={styles.headerRightText}>
-              Difficulty:{' '}
               <Text style={styles.values}>
                 {subject && subject.subjectCompleteness + ' ' + 'Were Correct'}
               </Text>
@@ -154,7 +147,7 @@ const TopicDetails = ({ route, navigation }) => {
           })}
         </Animated.View>
       </View>
-      {isShowSliderButton &&
+      {isShowSliderButton && (
         <>
           {!optionSection ? (
             <TouchableOpacity
@@ -169,7 +162,8 @@ const TopicDetails = ({ route, navigation }) => {
               <Image style={styles.leftArrowIcon} source={Icons.ic_right_arrow} />
             </TouchableOpacity>
           )}
-        </>}
+        </>
+      )}
     </View>
   );
 };
@@ -216,7 +210,7 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(15),
     paddingTop: verticalScale(40),
     position: 'absolute',
-    zIndex: -2
+    zIndex: -2,
   },
   title: {
     fontSize: verticalScale(20),
