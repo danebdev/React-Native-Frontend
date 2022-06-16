@@ -14,6 +14,8 @@ import { DummyPosts, DummyPosts2, DummyPosts3, DummyPosts4 } from '../DummyData'
 
 const ClassesScreen = ({ navigation }) => {
   const [likedPosts, setLikedPosts] = useState([]);
+
+  {/* DummyPosts data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */ }
   const [posts, setPosts] = useState(DummyPosts);
 
   const [tab1, setTab1] = useState(true);
@@ -22,6 +24,8 @@ const ClassesScreen = ({ navigation }) => {
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
+
+  //here is the dropdown data...
   const [items, setItems] = useState([
     { label: 'data structures', value: 'data structures' },
     { label: 'linear algebra', value: 'linear algebra' },
@@ -67,6 +71,8 @@ const ClassesScreen = ({ navigation }) => {
     navigation.navigate('NewPost');
   };
 
+
+  // function for change the all data coming from DummyData.js file inside the screen folder along with subject selection from dropdown
   const onSelectItemHandler = (item) => {
     if (item.value === 'data struction') {
       setPosts(DummyPosts)
@@ -90,6 +96,9 @@ const ClassesScreen = ({ navigation }) => {
         <View style={[appStyle.aiCenter]}>
           <Text style={styles.t12}>select your class</Text>
           <View style={{ width: screenWidth.width45 }}>
+
+            {/* the DropDownPicker component for selecting the subject */}
+
             <DropDownPicker
               style={{ borderColor: Colors.lightMidGray }}
               labelStyle={{ color: Colors.lightPink }}
@@ -130,6 +139,7 @@ const ClassesScreen = ({ navigation }) => {
               const IndexFound = selectedIndex.find((i) => i === index);
               const found = likedPosts.find((i, index) => i.id === item.id);
               return (
+                // here is the post component
                 <Post
                   key={index}
                   onPressHeart={() => onPressHeart(item)}
@@ -157,6 +167,7 @@ const ClassesScreen = ({ navigation }) => {
             {likedPosts.map((item, index) => {
               const IndexFound = selectedIndex.find((i) => i === index);
               return (
+                // here is the post component
                 <Post
                   key={index}
                   onPressHeart={() => onPressHeart(item)}

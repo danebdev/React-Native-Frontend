@@ -1,6 +1,6 @@
 import { OpenSans_300Light, useFonts } from '@expo-google-fonts/open-sans';
 import AppLoading from 'expo-app-loading';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native';
 // import * as Animatable from 'react-native-animatable';
 
@@ -9,7 +9,7 @@ import MyStatusBar from '../../components/MyStatusBar';
 import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
-import { screenHeight, screenWidth } from '../../styles/screenSize';
+import { screenHeight } from '../../styles/screenSize';
 import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 import { DummyOptions } from '../DummyData';
 
@@ -21,6 +21,7 @@ const TopicDetails = ({ route, navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState();
   const fadeAnim = useRef(new Animated.Value(-horizontalScale(400))).current;
 
+  // slider opening animations handler
   const sliderAnimationOpen = () => {
     Animated.timing(fadeAnim, {
       toValue: horizontalScale(10),
@@ -28,6 +29,7 @@ const TopicDetails = ({ route, navigation }) => {
     }).start();
   };
 
+  // slider closing animations handler
   const sliderAnimationCLose = () => {
     Animated.timing(fadeAnim, {
       toValue: -horizontalScale(400),
@@ -35,6 +37,7 @@ const TopicDetails = ({ route, navigation }) => {
     }).start();
   };
 
+  //font implementaion
   const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
   });
@@ -43,6 +46,8 @@ const TopicDetails = ({ route, navigation }) => {
     return <AppLoading />;
   }
 
+
+  // slider opening/closing handler
   const onPressSliderButton = (type) => {
     if (type === 'right') {
       sliderAnimationOpen();
@@ -83,6 +88,7 @@ const TopicDetails = ({ route, navigation }) => {
         </View>
       </View>
       <View style={appStyle.flex1}>
+        {/* Introductin section is here */}
         <View style={styles.boxMain}>
           <View>
             <Text style={styles.title}>Introduction</Text>
@@ -117,6 +123,8 @@ const TopicDetails = ({ route, navigation }) => {
             <Text style={styles.question}>What is the answer?</Text>
           </View>
 
+          {/* DummyOptions data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */}
+
           {DummyOptions.map((item, index) => {
             return (
               <TouchableOpacity
@@ -147,6 +155,9 @@ const TopicDetails = ({ route, navigation }) => {
           })}
         </Animated.View>
       </View>
+
+      {/* Button for sliding the options section from right to left and left to right */}
+
       {isShowSliderButton && (
         <>
           {!optionSection ? (
@@ -282,7 +293,6 @@ const styles = StyleSheet.create({
     marginVertical: verticalScale(15),
     borderRadius: 11,
     position: 'absolute',
-    // right: - horizontalScale(400)
   },
   questionMain: {
     height: verticalScale(83),

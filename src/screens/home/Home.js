@@ -33,6 +33,8 @@ const Home = ({ navigation }) => {
   const [days, setDays] = useState([]);
   const [classTime, setClassTime] = useState('12:00 PM');
 
+
+  // fonts implementation 
   const [fontsLoaded] = useFonts({
     light: OpenSans_300Light,
   });
@@ -92,6 +94,9 @@ const Home = ({ navigation }) => {
           <View style={styles.profileMain}>
             <Image style={styles.profile} source={Images.dummyUser} />
           </View>
+
+          {/* LinearGradient for user name in home screen component */}
+
           <LinearGradientText name={"robert fox"} />
           <Text style={[styles.sigma, { fontFamily: 'light' }]}>{getClout(clout)}</Text>
           <View style={styles.progressMain}>
@@ -108,6 +113,7 @@ const Home = ({ navigation }) => {
         </View>
         <View>
           <ScrollView contentContainerStyle={styles.classesMain}>
+            {/* DummyClasses data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */}
             {DummyClasses.map((item, index) => {
               return (
                 <ClassesCards
@@ -151,6 +157,9 @@ const Home = ({ navigation }) => {
             />
             <View>
               <Text style={styles.label}>Select Days</Text>
+
+              {/* DummyDays data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */}
+
               {DummyDays.map((item, index) => {
                 const found = days.find((i, index) => i === item.value);
                 return (
@@ -189,6 +198,9 @@ const Home = ({ navigation }) => {
             </View>
           </ScrollView>
         </View>
+
+        {/* Time picker component */}
+
         <DateTimePickerModal
           isVisible={isTimePickerVisible}
           mode="time"

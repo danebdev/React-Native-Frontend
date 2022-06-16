@@ -10,6 +10,8 @@ import { horizontalScale, verticalScale } from '../../utils/ScaleUtils';
 import { DummySubjectsTopics } from '../DummyData';
 
 const SubjectDetails = ({ route, navigation }) => {
+
+  // geting subject params from Learn.js file to display the selected subject
   const { subject } = route.params;
 
   const onPressSubject = () => {
@@ -34,9 +36,14 @@ const SubjectDetails = ({ route, navigation }) => {
         </View>
       </View>
       <View style={{ height: verticalScale(567) }}>
+
+        {/* DummySubjectsTopics data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */}
+
         <ScrollView contentContainerStyle={[appStyle.aiCenter, appStyle.pv10]}>
           {DummySubjectsTopics.map((item, index) => {
             return (
+
+              // subject topic card compenent
               <SubjectTopicCard
                 key={index}
                 onPress={onPressSubject}

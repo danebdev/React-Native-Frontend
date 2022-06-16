@@ -10,6 +10,8 @@ import { Colors } from '../../constants/assets/Colors';
 import { Icons } from '../../constants/assets/Icons';
 import appStyle from '../../styles/appStyle';
 import { horizontalScale, moderateScale, verticalScale } from '../../utils/ScaleUtils';
+
+//  DummyClasses data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl.
 import { DummyClasses } from '../DummyData';
 
 const KEYS_TO_FILTERS = ['courseTitle'];
@@ -33,6 +35,7 @@ const Search = ({ navigation }) => {
     navigation.navigate('Classes');
   };
 
+  // local search filter implementation
   const filteredSubjects = DummyClasses.filter(createFilter(searchQuery, KEYS_TO_FILTERS));
   return (
     <View style={[appStyle.flex1, { backgroundColor: Colors.backgroundGray }]}>
@@ -45,6 +48,7 @@ const Search = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.searchBarMain}>
+          {/* search input component */}
           <Searchbar
             onChangeText={(term) => setSearchQuery(term)}
             placeholder="search class by name"
@@ -57,6 +61,7 @@ const Search = ({ navigation }) => {
           />
         </View>
         <View>
+          {/* local search filter result will show here after entering title of subject in search input */}
           {filteredSubjects.length > 0 ? (
             filteredSubjects.map((item, index) => {
               return (
@@ -71,6 +76,8 @@ const Search = ({ navigation }) => {
               );
             })
           ) : (
+
+            // no search found when the searched title will not match with the existing subject list
             <View style={[appStyle.aiCenter, appStyle.mt50]}>
               <Text style={styles.noSearchFound}>no search found</Text>
             </View>

@@ -27,10 +27,14 @@ const Learn = ({ navigation }) => {
         </View>
       </View>
       <View style={{ height: verticalScale(600) }}>
+
+        {/* DummySubjects data coming from the DummyData.js file inside the screen folder which will replace according to the backend impl. */}
+
         <ScrollView
           contentContainerStyle={[appStyle.aiCenter, { paddingVertical: verticalScale(10) }]}>
           {DummySubjects.map((item, index) => {
             return (
+              // subject card component 
               <SubjectCard
                 key={index}
                 onPressStart={() => onPressStart(item)}

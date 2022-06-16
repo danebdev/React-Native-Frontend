@@ -27,8 +27,10 @@ const NewPost = ({ navigation }) => {
   const [isOptionActive, setIsOptionActive] = React.useState(false);
   const [newPostOptions, setNewpostOptions] = React.useState([]);
 
+  // toggle switch for first 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
+  // toggle switch for second
   const onToggleSwitch2 = () => {
     setIsSwitchOn2(!isSwitchOn2);
     setIsSubmitButtonVisible(!isSubmitButtonVisible);
@@ -48,6 +50,7 @@ const NewPost = ({ navigation }) => {
     navigation.goBack();
   };
 
+  // add option handler is here
   const onPressAddoptions = () => {
     if (newPostOptions.length < 11) {
       const newOption = { option: '' };
@@ -69,6 +72,9 @@ const NewPost = ({ navigation }) => {
             <Image style={styles.crossIcon} source={Icons.ic_cross} />
           </TouchableOpacity>
         </View>
+
+        {/* after adding options here we can list the added options for new post */}
+
         {isOptionActive && (
           <>
             <View style={styles.boxMainOptions}>
@@ -94,6 +100,9 @@ const NewPost = ({ navigation }) => {
                 );
               })}
             </View>
+
+            {/* add options button's here */}
+
             <View>
               <TouchableOpacity onPress={onPressAddoptions} style={styles.addOptionsMain}>
                 <Image style={styles.plusIcon} source={Icons.ic_plusCircle} />
@@ -113,6 +122,9 @@ const NewPost = ({ navigation }) => {
         )}
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+
+        {/* toggel switch button section */}
+
         <View style={styles.lowerSection}>
           {!isOptionActive && (
             <View style={[appStyle.row, appStyle.aiCenter, appStyle.mb10]}>
@@ -137,6 +149,8 @@ const NewPost = ({ navigation }) => {
                 <Text>This is an exam resource</Text>
               </View>
             )}
+
+            {/* button for submit the post and for next section */}
 
             {isSwitchOn2 && (
               <Button
