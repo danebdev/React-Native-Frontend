@@ -9,3 +9,5 @@ This project has been created using Expo.
 1. run `yarn install` on project root directory to install the node modules.
 2. run `yarn ios` to run the application on iOS simulator or device.
 3. run `yarn android` to run the application on emulator or device.
+
+![](https://github.com/danebdev/React-Native-Frontend/blob/develop/example/1.png)
